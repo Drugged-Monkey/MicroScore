@@ -57,11 +57,11 @@
             <ul data-bind="foreach: matches">
                 <li>
                     <div class="left">
-                        <span data-bind="text: isTeamLead ? 'Вели тур' : (!isTeamB ? teamScore : '0 (Б)'), css: { boldText: !isTeamLead && !isTeamB && !isGuestLead && teamScore > guestScore }"></span>
+                        <span data-bind="text: isTeamLead ? 'Вели тур' : (!isTeamB ? teamScore : (isTeamB && isGuestB ? teamScore + ' (Б)' : '0 (Б)')), css: { boldText: !isTeamLead && !isGuestLead && teamScore > guestScore }"></span>
                     </div>
                     <div class="center">:</div>
                     <div class="right">
-                        <span data-bind="text: isGuestLead ? 'Вели тур' : (!isGuestB ? guestScore : '0 (Б)'), css: { boldText: !isGuestLead && !isGuestB && !isTeamLead &&  teamScore < guestScore }"></span>
+                        <span data-bind="text: isGuestLead ? 'Вели тур' : (!isGuestB ? guestScore : (isTeamB && isGuestB ? guestScore + ' (Б)' : '0 (Б)')), css: { boldText: !isGuestLead && !isTeamLead && teamScore < guestScore }"></span>
                     </div>
                 </li>
             </ul>

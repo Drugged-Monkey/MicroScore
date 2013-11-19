@@ -139,8 +139,8 @@ function cellClick(cell) {
                     } else if (teamBResult != undefined && guestBResult != undefined) { //team in B, guest in B
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = false;
-                        isGuestB = false;
+                        isTeamB = true;
+                        isGuestB = true;
                         teamScore = teamBResult.score;
                         guestScore = guestBResult.score;
 
@@ -152,8 +152,8 @@ function cellClick(cell) {
                     } else if (teamBResult != undefined && guestBResult == undefined) { //team in B, guest not in B (and not in A)
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = false;
-                        isGuestB = false;
+                        isTeamB = true;
+                        isGuestB = true;
                         teamScore = teamBResult.score;
                         guestScore = 0;
 
@@ -161,8 +161,8 @@ function cellClick(cell) {
                     } else if (teamBResult == undefined && guestBResult != undefined) {//team not in B (and not in A) B, guest in B 
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = false;
-                        isGuestB = false;
+                        isTeamB = true;
+                        isGuestB = true;
                         teamScore = 0;
                         guestScore = guestBResult.score;
 
@@ -170,8 +170,8 @@ function cellClick(cell) {
                     } else { //both teams not in B
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = false;
-                        isGuestB = false;
+                        isTeamB = true;
+                        isGuestB = true;
                         teamScore = 0;
                         guestScore = 0;
                     }
