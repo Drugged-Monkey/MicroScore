@@ -223,3 +223,8 @@ li {
 #mainTable {
     margin-bottom: 80px;
 }
+
+#container ul {
+    margin: 0;
+    padding: 0;
+}

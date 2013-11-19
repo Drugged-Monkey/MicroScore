@@ -411,11 +411,7 @@ $(document).ready(function () {
                 cell.style = "self";
             }
 
-            Object.defineProperty(team, "team" + guest.teamId, {
-                get: function () {
-                    return cell;
-                }
-            });
+            team["team" + guest.teamId] = cell;
         });
 
         //calculate persents and add table headers
