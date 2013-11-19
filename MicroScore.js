@@ -275,14 +275,7 @@ function compareResults(team, guest) {
 }
 
 function sortByPoints(a, b) {
-    var aPoints = a.points;
-    var bPoints = b.points;
-    var aPercent = a.percents;
-    var bPercent = b.percents;
-    return (aPoints < bPoints ? 1 : 
-                      (aPoints > bPoints ? -1 : 
-                                (aPercent < bPercent ? 1 : 
-                                                    (aPercent > bPercent ? -1 : 0))));
+	return (b.points - a.points) || (b.percents - a.percents);
 }
 
 function getNameById(id) {
@@ -352,8 +345,10 @@ $(document).ready(function () {
         tour.A.results.sort(function (a, b) { return b.score - a.score });
         tour.A.max = tour.A.results[0].score;
 
-        tour.B.results.sort(function (a, b) { return b.score - a.score });
-        tour.B.max = tour.B.results[0].score;
+        if (tour.B.results.length > 0) {
+        	tour.B.results.sort(function (a, b) { return b.score - a.score });
+        	tour.B.max = tour.B.results[0].score;
+        }
 
         $.each(tour.A.results, function (j, result) {
             if (result.teamId == 0) {
@@ -437,7 +432,7 @@ $(document).ready(function () {
                 team.totalAnsweredQuestions += teamBResult.score;
             }
         });
-        team.percents = (team.totalAnsweredQuestions * 100 / team.totalMaxQuestions).toFixed(2);
+        team.percents = Math.round(team.totalAnsweredQuestions * 10000 / team.totalMaxQuestions) / 100;
     });
 
     teams.sort(sortByPoints);

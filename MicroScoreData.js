@@ -1,39 +1,39 @@
 ﻿function overridenResult(teamName, teamId, score) {
-    var result = new Result(teamName, score);
-    result.teamId = teamId;
-    return result;
+	var result = new Result(teamName, score);
+	result.teamId = teamId;
+	return result;
 }
 
 function Result(teamName, score) {
-    this.teamName = teamName;
-    this.teamId = 0;
-    this.score = score;
+	this.teamName = teamName;
+	this.teamId = 0;
+	this.score = score;
 }
 
-function CommonTour(tourId, leads, tourA, tourB){
-    this.tourId = tourId;
-    this.leads = leads;
-    this.A = tourA;
-    this.B = tourB;
+function CommonTour(tourId, leads, tourA, tourB) {
+	this.tourId = tourId;
+	this.leads = leads;
+	this.A = tourA;
+	this.B = tourB;
 }
 
 function Tour(tourId, tourType, results) {
-    this.results = results;
-    this.tourId = tourId;
-    this.tourType = tourType;
-    this.max = 0;
+	this.results = results;
+	this.tourId = tourId;
+	this.tourType = tourType;
+	this.max = 0;
 }
 
 function Team(teamId, teamName) {
-    this.teamId = teamId;
-    this.teamName = teamName;
-    this.wins = 0;
-    this.draws = 0;
-    this.loses = 0;
-    this.points = 0;
-    this.totalAnsweredQuestions = 0;
-    this.totalMaxQuestions = 0;
-    this.percents = 0;
+	this.teamId = teamId;
+	this.teamName = teamName;
+	this.wins = 0;
+	this.draws = 0;
+	this.loses = 0;
+	this.points = 0;
+	this.totalAnsweredQuestions = 0;
+	this.totalMaxQuestions = 0;
+	this.percents = 0;
 }
 
 var teams = [];
@@ -41,10 +41,10 @@ var teams = [];
 var tours = [
     new CommonTour(
         1,
-        ["Нехорошая квартира", "Ad astra", "Ыбырвалг", "МИД-2", "Не мешки ворочать", "Кефирные грибки"],
+        ["Нехорошая квартира", "Ad Astra", "Ыбырвалг", "МИД-2", "Любовь Каксон", "Кефирные грибки"],
         new Tour(
             1,
-            "A",  [
+            "A", [
             new Result("Middle", 24),
             new Result("Summa Technologiae", 21),
             new Result("Одушевленные аэросани", 20),
@@ -100,7 +100,7 @@ var tours = [
             new Result("Невкусный тюлень", 18),
             new Result("Канада", 17),
             new Result("Дети филфака", 17),
-            new Result("С блэк джеком", 17),
+            new Result("С блэк-джеком", 17),
             new Result("EcoSapiens", 16),
             new Result("Дарвин и утконос", 16),
             new Result("К слону не прислоняться", 16),
@@ -133,7 +133,7 @@ var tours = [
             ])),
         new CommonTour(
             2,
-            ["Фунтики", "Плинтус", "Хунвейбины", "Страпелька", "Боливария", "Status Quo" ],
+            ["Фунтики", "Плинтус", "Хунвейбины", "Страпелька", "Боливария", "Status Quo"],
             new Tour(
                 2,
                 "A", [
@@ -164,7 +164,7 @@ var tours = [
                 new Result("АМО-натюрлих", 9),
                 new Result("Дятлы", 9),
                 new Result("Кефирные грибки", 8),
-                new Result("Ad astra", 8),
+                new Result("Ad Astra", 8),
                 new Result("Конь-буквоед", 8),
                 new Result("Канада", 8),
                 new Result("Утечка мозгов", 7),
@@ -177,7 +177,7 @@ var tours = [
                 new Result("Стальная ложка", 4)
                 ]),
             new Tour(
-                2, 
+                2,
                 "B", [
                 new Result("Канада", 21),
                 new Result("Хрустальная сова", 19),
@@ -208,7 +208,7 @@ var tours = [
                 new Result("Шезлонг", 14),
                 new Result("Марка", 13),
                 new Result("Aspers", 13),
-                new Result("С блэк джеком", 13),
+                new Result("С блэк-джеком", 13),
                 new Result("Жесткое женское доминирование", 12),
                 new Result("Ultima Ratio", 12),
                 new Result("Аматары амарэта", 12),
@@ -227,7 +227,7 @@ var tours = [
             3,
             ["Одушевленные аэросани", "Эйфью", "Кеша", "Хронически разумные United", "Енотики-7", "Утечка мозгов"],
             new Tour(
-                3, 
+                3,
                 "A", [
                 new Result("МИД-2", 25),
                 new Result("Summa Technologiae", 25),
@@ -255,7 +255,7 @@ var tours = [
                 new Result("Дети филфака", 14),
                 new Result("Дятлы", 14),
                 new Result("Грумис", 14),
-                new Result("Ad astra", 14),
+                new Result("Ad Astra", 14),
                 new Result("Плинтус", 14),
                 new Result("Status Quo", 14),
                 new Result("Невкусный тюлень", 12),
@@ -268,7 +268,7 @@ var tours = [
                 new Result("Хрустальная сова", 8)
                 ]),
            new Tour(
-                3, 
+                3,
                 "B", [
                 new Result("Хунвейбины", 32),
                 new Result("МаФи", 30),
@@ -280,7 +280,7 @@ var tours = [
                 new Result("Че", 25),
                 new Result("Марка", 24),
                 new Result("Lieben Bier", 24),
-                new Result("С блэк джеком", 24),
+                new Result("С блэк-джеком", 24),
                 new Result("Холодец", 24),
                 new Result("Джоизация", 23),
                 new Result("Мулен Руж", 22),
@@ -315,7 +315,7 @@ var tours = [
                 ])),
     new CommonTour(
         4,
-       [ "Не вопрос", "Пиромане", "Хаджипирьях", "Умник", "Ять", "Джоизация" ],
+       ["Не вопрос", "Пиромане", "Хаджипирьях", "Умник", "Ять", "Джоизация"],
        new Tour(
            4,
            "A", [
@@ -341,7 +341,7 @@ var tours = [
             new Result("Кефирные грибки", 14),
             new Result("Грумис", 14),
             new Result("Эталон этанола", 14),
-            new Result("Ad astra", 14),
+            new Result("Ad Astra", 14),
             new Result("Невкусный тюлень", 14),
             new Result("Канада", 14),
             new Result("Status Quo", 13),
@@ -356,9 +356,9 @@ var tours = [
             new Result("Рухавiк", 9),
             new Result("Артефакт", 7),
             new Result("АМО-натюрлих", 0)
-            ]),
+           ]),
         new Tour(
-            4, 
+            4,
             "B", [
             new Result("Кефирные грибки", 21),
             new Result("Ыбырвалг", 20),
@@ -366,7 +366,7 @@ var tours = [
             new Result("Имитируем сарказм", 19),
             new Result("Эйфью", 18),
             new Result("АМО-натюрлих", 18),
-            new Result("С блэк джеком", 16),
+            new Result("С блэк-джеком", 16),
             new Result("ХТТ", 16),
             new Result("ХЗИВ", 15),
             new Result("Йоужики", 15),
@@ -390,7 +390,335 @@ var tours = [
             new Result("Шезлонг", 6),
             new Result("Скупая слеза на бородатой щеке", 6),
             new Result("Падшие редуцированные", 3)
-            ]))
+            ])),
+	new CommonTour(
+        5,
+       ["МаФи", "АМО-натюрлих", "Lieben Bier", "Middle", "Zемляне", "Мулен Руж"],
+       new Tour(
+           5,
+           "A",
+			[
+			new Result("МИД-2", 26),
+			new Result("Хронически разумные United", 22),
+			new Result("Нехорошая квартира", 22),
+			new Result("Боливария", 21),
+			new Result("Summa Technologiae", 19),
+			new Result("Одушевленные аэросани", 19),
+			new Result("Любовь Каксон", 18),
+			new Result("Не вопрос", 18),
+			new Result("New-реанимация", 17),
+			new Result("Эйфью", 17),
+			new Result("Ять", 17),
+			new Result("Артефакт", 17),
+			new Result("Енотики-7", 17),
+			new Result("Хаджипирьях", 16),
+			new Result("Status Quo", 16),
+			new Result("Имитируем сарказм", 15),
+			new Result("Умник", 15),
+			new Result("Пиромане", 14),
+			new Result("IX-XI", 14),
+			new Result("Дятлы", 14),
+			new Result("Саветум", 14),
+			new Result("Плинтус", 13),
+			new Result("Фунтики", 12),
+			new Result("Грумис", 12),
+			new Result("Хунвейбины", 12),
+			new Result("Конь-буквоед", 12),
+			new Result("Утечка мозгов", 12),
+			new Result("Канада", 11),
+			new Result("Ыбырвалг", 10),
+			new Result("Эталон этанола", 9),
+			new Result("Невкусный тюлень", 9),
+			new Result("Кефирные грибки", 9),
+			new Result("АМО-натюрлих", 9),
+			new Result("Страпелька", 9),
+			new Result("ХЗИВ", 9),
+			new Result("Ad Astra", 8)
+			]),
+		new Tour(
+			5,
+			"B",
+			[
+			new Result("Артефакт", 29),
+			new Result("АМО-натюрлих", 28),
+			new Result("Плинтус", 27),
+			new Result("Эйфью", 26),
+			new Result("ХЗИВ", 26),
+			new Result("Фиаско штурвалу", 24),
+			new Result("Джоизация", 24),
+			new Result("К слону не прислоняться", 23),
+			new Result("Хрустальная сова", 22),
+			new Result("EcoSapiens", 22),
+			new Result("Министерство правды", 22),
+			new Result("Слёзы Мичурина", 22),
+			new Result("Мамонтлошечка", 21),
+			new Result("Шезлонг", 21),
+			new Result("Йоужики", 20),
+			new Result("Дети филфака", 20),
+			new Result("Параболоид", 20),
+			new Result("ХТТ", 19),
+			new Result("Aspers", 19),
+			new Result("317 кВт", 18),
+			new Result("Холодец", 18),
+			new Result("Delta Force", 17),
+			new Result("Аматары амарэта", 17),
+			new Result("Стальная ложка", 17),
+			new Result("Дарвин и утконос", 17),
+			new Result("Дзета", 17),
+			new Result("Скупая слеза на бородатой щеке", 16),
+			new Result("Падшие редуцированные", 15),
+			new Result("Марка", 15),
+			new Result("Фламандский лев", 15),
+			new Result("Ultima Ratio", 15),
+			new Result("Аццкий пепелац", 15),
+			new Result("Баррикадное мышление", 15),
+			new Result("Hava Nagila", 14),
+			new Result("Карл Клару", 14),
+			new Result("Mario Brazzers", 13),
+			new Result("Альфа-минимум", 11)
+			])
+		),
+	new CommonTour(
+        6,
+       ["IX-XI", "Злые белки", "Артефакт", "Summa Technologiae", "Саветум", "New-реанимация"],
+       new Tour(
+           6,
+           "A",
+			[
+			new Result("МИД-2", 21),
+			new Result("Хронически разумные United", 16),
+			new Result("Не вопрос", 15),
+			new Result("Умник", 13),
+			new Result("Ять", 13),
+			new Result("Middle", 12),
+			new Result("Енотики-7", 12),
+			new Result("Нехорошая квартира", 12),
+			new Result("Хрустальная сова", 11),
+			new Result("Пиромане", 11),
+			new Result("Плинтус", 11),
+			new Result("Одушевленные аэросани", 11),
+			new Result("Йоужики", 11),
+			new Result("Эталон этанола", 10),
+			new Result("Имитируем сарказм", 10),
+			new Result("Любовь Каксон", 9),
+			new Result("Фунтики", 9),
+			new Result("Злые белки", 9),
+			new Result("Невкусный тюлень", 9),
+			new Result("МаФи", 9),
+			new Result("Хаджипирьях", 8),
+			new Result("Утечка мозгов", 8),
+			new Result("Хунвейбины", 8),
+			new Result("Канада", 7),
+			new Result("Ыбырвалг", 7),
+			new Result("Грумис", 7),
+			new Result("Боливария", 7),
+			new Result("Status Quo", 7),
+			new Result("Эйфью", 7),
+			new Result("Конь-буквоед", 6),
+			new Result("Дятлы", 6),
+			new Result("Zемляне", 6),
+			new Result("Дзета", 5),
+			new Result("Дети филфака", 5),
+			new Result("Ad Astra", 5),
+			new Result("Мулен Руж", 4)
+			]),
+		new Tour(
+			6,
+			"B",
+			[
+			new Result("Хрустальная сова", 19),
+			new Result("Дети филфака", 19),
+			new Result("Ad Astra", 18),
+			new Result("Дзета", 16),
+			new Result("Йоужики", 14),
+			new Result("Lieben Bier", 13),
+			new Result("ХЗИВ", 13),
+			new Result("С блэк-джеком", 12),
+			new Result("ХТТ", 12),
+			new Result("Кефирные грибки", 12),
+			new Result("Слезы Мичурина", 12),
+			new Result("Падший Карлсон", 11),
+			new Result("Фламандский лев", 11),
+			new Result("Delta Force", 11),
+			new Result("Стальная ложка", 11),
+			new Result("Министерство правды", 10),
+			new Result("EcoSapiens", 10),
+			new Result("Марка", 10),
+			new Result("Дарвин и утконос", 10),
+			new Result("Ultima Ratio", 10),
+			new Result("Холодец", 9),
+			new Result("Парабалоид", 9),
+			new Result("Mario Brazzers", 8),
+			new Result("Aspers", 8),
+			new Result("Шезлонг", 7),
+			new Result("К слону не прислоняться", 7),
+			new Result("Скупая слеза на бородатой щеке", 7),
+			new Result("Hava Nagila", 7),
+			new Result("Мамонтлошечка", 7),
+			new Result("Аматары амарэта", 6),
+			new Result("317 кВт", 6),
+			new Result("Падшие редуцированные", 5),
+			new Result("Аццкий пепелац", 4),
+			new Result("Принцесса Зига", 4),
+			new Result("Карл Клару", 2)
+			])),
+
+	new CommonTour(
+		7,
+		[],
+		new Tour(
+		7,
+		"F",
+		[
+		new Result("Ять", 9),
+		new Result("Summa Technologiae", 9),
+		new Result("Енотики-7", 9),
+		new Result("Любовь Каксон", 7),
+		new Result("Утечка мозгов", 7),
+		new Result("Грумис", 7),
+		new Result("Одушевленные аэросани", 7),
+		new Result("Саветум", 7),
+		new Result("Фунтики", 7),
+		new Result("Дети филфака", 7),
+		new Result("Не вопрос", 7),
+		new Result("IX-XI", 7),
+		new Result("Middle", 7),
+		new Result("Плинтус", 7),
+		new Result("Хунвейбины", 7),
+		new Result("Умник", 6),
+		new Result("Хронически разумные United", 6),
+		new Result("Боливария", 6),
+		new Result("Аматары амарэта", 6),
+		new Result("Страпелька", 6),
+		new Result("Lieben Bier", 6),
+		new Result("МаФи", 6),
+		new Result("Шезлонг", 5),
+		new Result("Мулен Руж", 5),
+		new Result("Мамонтлошечка", 5),
+		new Result("Status Quo", 5),
+		new Result("Эйфью", 5),
+		new Result("Параболоид", 5),
+		new Result("Джоизация", 4),
+		new Result("АМО-натюрлих", 4),
+		new Result("Имитируем сарказм", 4),
+		new Result("New-реанимация", 4),
+		new Result("Кефирные грибки", 4),
+		new Result("Конь-буквоед", 4),
+		new Result("Zемляне", 4),
+		new Result("Ыбырвалг", 4),
+		new Result("Слёзы Мичурина", 4),
+		new Result("Эталон этанола", 4),
+		new Result("Йоужики", 4),
+		new Result("Нехорошая квартира", 4),
+		new Result("Хрустальная сова", 4),
+		new Result("Пиромане", 4),
+		new Result("ХТТ", 4),
+		new Result("Ad Astra", 4),
+		new Result("Дятлы", 3),
+		new Result("С блэк-джеком", 3),
+		new Result("Стальная ложка", 3),
+		new Result("Скупая слеза на бородатой щеке", 3),
+		new Result("Марка", 3),
+		new Result("Фиаско штурвалу", 3),
+		new Result("Злые белки", 3),
+		new Result("Артефакт", 3),
+		new Result("Фламандский лев", 3),
+		new Result("Дзета", 3),
+		new Result("Министерство правды", 3),
+		new Result("Дарвин и утконос", 3),
+		new Result("ХЗИВ", 3),
+		new Result("К слону не прислоняться", 2),
+		new Result("Hava Nagila", 2),
+		new Result("Падшие редуцированные", 2),
+		new Result("Хаджипирьях", 2),
+		new Result("Mario Brazzers", 2),
+		new Result("Канада", 2),
+		new Result("Невкусный тюлень", 2),
+		new Result("317 кВт", 2),
+		new Result("Ultima Ratio", 1),
+		new Result("EcoSapiens", 1),
+		new Result("Лососи", 1),
+		new Result("Delta Force", 1)
+		]),
+		new Tour(7, "", [])),
+
+	new CommonTour(
+		8,
+		[],
+		new Tour(8,
+		"F",
+		[
+		new Result("Хронически разумные United", 10),
+new Result("Middle", 10),
+new Result("Summa Technologiae", 10),
+new Result("Страпелька", 9),
+new Result("IX-XI", 9),
+new Result("Боливария", 8),
+new Result("Хунвейбины", 8),
+new Result("Грумис", 8),
+new Result("Любовь Каксон", 7),
+new Result("Ять", 7),
+new Result("МаФи", 7),
+new Result("АМО-натюрлих", 7),
+new Result("Саветум", 7),
+new Result("Злые белки", 7),
+new Result("Фунтики", 7),
+new Result("Умник", 6),
+new Result("Йоужики", 6),
+new Result("Енотики-7", 6),
+new Result("Хаджипирьях", 6),
+new Result("New-реанимация", 5),
+new Result("Дети филфака", 5),
+new Result("Плинтус", 5),
+new Result("Одушевленные аэросани", 5),
+new Result("Нехорошая квартира", 5),
+new Result("Слёзы Мичурина", 5),
+new Result("Дзета", 5),
+new Result("Lieben Bier", 5),
+new Result("Zемляне", 5),
+new Result("Status Quo", 5),
+new Result("Пиромане", 5),
+new Result("Артефакт", 5),
+new Result("Не вопрос", 5),
+new Result("Падшие редуцированные", 4),
+new Result("ХТТ", 4),
+new Result("Невкусный тюлень", 4),
+new Result("Delta Force", 4),
+new Result("Канада", 4),
+new Result("Эйфью", 4),
+new Result("Ad Astra", 4),
+new Result("С блэк-джеком", 4),
+new Result("Эталон этанола", 4),
+new Result("Кефирные грибки", 4),
+new Result("Мамонтлошечка", 4),
+new Result("Стальная ложка", 4),
+new Result("Параболоид", 4),
+new Result("Ultima Ratio", 4),
+new Result("Фиаско штурвалу", 3),
+new Result("Скупая слеза на бородатой щеке", 3),
+new Result("Хрустальная сова", 3),
+new Result("Ыбырвалг", 3),
+new Result("Имитируем сарказм", 3),
+new Result("ХЗИВ", 3),
+new Result("Мулен Руж", 3),
+new Result("Конь-буквоед", 2),
+new Result("Министерство правды", 2),
+new Result("Марка", 2),
+new Result("Mario Brazzers", 2),
+new Result("Фламандский лев", 2),
+new Result("Джоизация", 2),
+new Result("Hava Nagila", 2),
+new Result("Аматары амарэта", 2),
+new Result("Утечка мозгов", 2),
+new Result("Дарвин и утконос", 1),
+new Result("Лососи", 1),
+new Result("EcoSapiens", 1),
+new Result("К слону не прислоняться", 1),
+new Result("Шезлонг", 1),
+new Result("Дятлы", 0),
+new Result("317 кВт", 0)
+		]),
+		new Tour(8, "", []))
 ];
 
 var tourCount = tours.length;
