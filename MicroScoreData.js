@@ -33,7 +33,7 @@ function Team(teamId, teamName) {
     this.points = 0;
     this.totalAnsweredQuestions = 0;
     this.totalMaxQuestions = 0;
-    this.persents = 0;
+    this.percents = 0;
 }
 
 var teams = [];

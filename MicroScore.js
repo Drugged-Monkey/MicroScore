@@ -277,12 +277,12 @@ function compareResults(team, guest) {
 function sortByPoints(a, b) {
     var aPoints = a.points;
     var bPoints = b.points;
-    var aPersent = a.persents;
-    var bPersent = b.persents;
+    var aPercent = a.percents;
+    var bPercent = b.percents;
     return (aPoints < bPoints ? 1 : 
                       (aPoints > bPoints ? -1 : 
-                                (aPersent < bPersent ? 1 : 
-                                                    (aPersent > bPersent ? -1 : 0))));
+                                (aPercent < bPercent ? 1 : 
+                                                    (aPercent > bPercent ? -1 : 0))));
 }
 
 function getNameById(id) {
@@ -414,7 +414,7 @@ $(document).ready(function () {
             team["team" + guest.teamId] = cell;
         });
 
-        //calculate persents and add table headers
+        //calculate percents and add table headers
         $.each(tours, function (j, tour) {
             var teamAResult, teamBResult;
             $.each(tour.A.results, function (j, result) {
@@ -437,7 +437,7 @@ $(document).ready(function () {
                 team.totalAnsweredQuestions += teamBResult.score;
             }
         });
-        team.persents = (team.totalAnsweredQuestions * 100 / team.totalMaxQuestions).toFixed(2);
+        team.percents = (team.totalAnsweredQuestions * 100 / team.totalMaxQuestions).toFixed(2);
     });
 
     teams.sort(sortByPoints);
