@@ -187,7 +187,7 @@ var tours = [
                 new Result("Стальная ложка", 19),
                 new Result("Невкусный тюлень", 18),
                 new Result("Фиаско штурвалу", 18),
-                new Result("Мулен руж", 18),
+                new Result("Мулен Руж", 18),
                 new Result("ХЗИВ", 17),
                 new Result("Пиромане", 17),
                 new Result("Слёзы Мичурина", 17),
