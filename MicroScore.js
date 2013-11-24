@@ -25,6 +25,7 @@ function MicroViewModel() {
 
     // observables
     self.isWindowVisible = ko.observable(false);
+    self.isMergeVisible = ko.observable(false);
 
     self.teams = ko.observableArray(teams);
 
@@ -35,6 +36,7 @@ function MicroViewModel() {
     self.guestScore = ko.observable(0);
 
     self.rand = ko.observable(getRandomInt(1, 2));
+    self.sortType = ko.observable(1);
 
     //computed
     self.matchesScore = ko.computed(function () {
@@ -217,7 +219,6 @@ function cellClick(cell) {
     }
 }
 
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -276,6 +277,12 @@ function compareResults(team, guest) {
 
 function sortByPoints(a, b) {
 	return (b.points - a.points) || (b.percents - a.percents);
+}
+
+function sortByAlphabet(a, b) {
+	var aName = a.teamName.toLowerCase();
+	var bName = b.teamName.toLowerCase();
+	return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
 
 function getNameById(id) {
@@ -435,9 +442,22 @@ $(document).ready(function () {
         team.percents = Math.round(team.totalAnsweredQuestions * 10000 / team.totalMaxQuestions) / 100;
     });
 
-    teams.sort(sortByPoints);
+    switch (microViewModel.sortType())
+    {
+    	case 1:
+    		{
+    			teams.sort(sortByPoints);
+    			break;
+    		}
+    	case 2:
+    		{
+    			teams.sort(sortByAlphabet);
+    			break;
+    		}
+    }
+    
 
-    $.each(teams, function (i, team) {
+	$.each(teams, function (i, team) {
         $("#mainTable thead tr").append("<th class='clickable' data-teamplace='" + (i + 1) + "' data-teamname='" + team.teamName + "'>" + (i + 1) + "</th>");
         $("#mainTable tbody tr").append("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\" class='clickable'></td>");
     });
