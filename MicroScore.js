@@ -25,6 +25,7 @@ function MicroViewModel() {
 
     // observables
     self.isWindowVisible = ko.observable(false);
+    self.isMaskVisible = ko.observable(false);
     self.isMergeVisible = ko.observable(false);
 
     self.teams = ko.observableArray(teams);
@@ -43,6 +44,10 @@ function MicroViewModel() {
         return self.teamScore() + " : " + self.guestScore();
     }, this);
 
+    self.matchesStyle = ko.computed(function () {
+        return self.teamScore() > self.guestScore() ? 'win' : (self.teamScore() < self.guestScore() ? 'lose' : 'draw');
+    }, this);
+
     self.firstPerson = ko.computed(function () {
         return self.rand() == 1 ? r1 : r2;
     }, this);
@@ -59,6 +64,7 @@ function MicroViewModel() {
         self.teamScore(0);
         self.guestScore(0);
         self.isWindowVisible(false);
+        self.isMaskVisible(false);
     }
 }
 
@@ -155,7 +161,7 @@ function cellClick(cell) {
                         isTeamLead = false;
                         isGuestLead = false;
                         isTeamB = true;
-                        isGuestB = true;
+                        isGuestB = null;
                         teamScore = teamBResult.score;
                         guestScore = 0;
 
@@ -163,7 +169,7 @@ function cellClick(cell) {
                     } else if (teamBResult == undefined && guestBResult != undefined) {//team not in B (and not in A) B, guest in B 
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = true;
+                        isTeamB = null;
                         isGuestB = true;
                         teamScore = 0;
                         guestScore = guestBResult.score;
@@ -172,8 +178,8 @@ function cellClick(cell) {
                     } else { //both teams not in B
                         isTeamLead = false;
                         isGuestLead = false;
-                        isTeamB = true;
-                        isGuestB = true;
+                        isTeamB = null;
+                        isGuestB = null;
                         teamScore = 0;
                         guestScore = 0;
                     }
@@ -208,9 +214,10 @@ function cellClick(cell) {
         }
 
         microViewModel.isWindowVisible(true);
+        microViewModel.isMaskVisible(true);
         resizeWindow();
     } else if (teamPlace && teamName) {
-        if (parseInt($(cell).html()) > 0 ) {
+        if (parseInt($(cell).html()) > 0) {
             $(cell).html(teamName);
         }
         else {
@@ -224,7 +231,7 @@ function getRandomInt(min, max) {
 }
 
 function compareResults(team, guest) {
-
+    
     var teamScore = 0;
     var guestScore = 0;
 
@@ -276,13 +283,13 @@ function compareResults(team, guest) {
 }
 
 function sortByPoints(a, b) {
-	return (b.points - a.points) || (b.percents - a.percents);
+    return (b.points - a.points) || (b.percents - a.percents);
 }
 
 function sortByAlphabet(a, b) {
-	var aName = a.teamName.toLowerCase();
-	var bName = b.teamName.toLowerCase();
-	return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+    var aName = a.teamName.toLowerCase();
+    var bName = b.teamName.toLowerCase();
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
 
 function getNameById(id) {
@@ -329,7 +336,6 @@ function isTeamUniq(name) {
 
 //entry point
 $(document).ready(function () {
-
     //events
     $("#mainTable").on('click', function (args) {
         cellClick(args.target);
@@ -353,8 +359,8 @@ $(document).ready(function () {
         tour.A.max = tour.A.results[0].score;
 
         if (tour.B.results.length > 0) {
-        	tour.B.results.sort(function (a, b) { return b.score - a.score });
-        	tour.B.max = tour.B.results[0].score;
+            tour.B.results.sort(function (a, b) { return b.score - a.score });
+            tour.B.max = tour.B.results[0].score;
         }
 
         $.each(tour.A.results, function (j, result) {
@@ -442,22 +448,20 @@ $(document).ready(function () {
         team.percents = Math.round(team.totalAnsweredQuestions * 10000 / team.totalMaxQuestions) / 100;
     });
 
-    switch (microViewModel.sortType())
-    {
-    	case 1:
-    		{
-    			teams.sort(sortByPoints);
-    			break;
-    		}
-    	case 2:
-    		{
-    			teams.sort(sortByAlphabet);
-    			break;
-    		}
+    switch (microViewModel.sortType()) {
+        case 1:
+            {
+                teams.sort(sortByPoints);
+                break;
+            }
+        case 2:
+            {
+                teams.sort(sortByAlphabet);
+                break;
+            }
     }
-    
 
-	$.each(teams, function (i, team) {
+    $.each(teams, function (i, team) {
         $("#mainTable thead tr").append("<th class='clickable' data-teamplace='" + (i + 1) + "' data-teamname='" + team.teamName + "'>" + (i + 1) + "</th>");
         $("#mainTable tbody tr").append("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\" class='clickable'></td>");
     });
