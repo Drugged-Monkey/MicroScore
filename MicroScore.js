@@ -2,6 +2,9 @@
 
 var r1 = "<a href='https://twitter.com/baoyu42'>Юра Разумов</a>"
 var r2 = "<a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a>"
+var teams = [];
+var tours = [];
+var tourCount = 0;
 
 function ToursMatch(teamScore, guestScore) {
 	this.teamScore = teamScore;
@@ -15,6 +18,44 @@ function TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGu
 	this.isGuestLead = isGuestLead;
 	this.isTeamB = isTeamB;
 	this.isGuestB = isGuestB;
+}
+
+function overridenResult(teamName, teamId, score) {
+	var result = new Result(teamName, score);
+	result.teamId = teamId;
+	return result;
+}
+
+function Result(teamName, score) {
+	this.teamName = teamName;
+	this.teamId = 0;
+	this.score = score;
+}
+
+function CommonTour(tourId, leads, tourA, tourB) {
+	this.tourId = tourId;
+	this.leads = leads;
+	this.A = tourA;
+	this.B = tourB;
+}
+
+function Tour(tourId, tourType, results) {
+	this.results = results;
+	this.tourId = tourId;
+	this.tourType = tourType;
+	this.max = 0;
+}
+
+function Team(teamId, teamName) {
+	this.teamId = teamId;
+	this.teamName = teamName;
+	this.wins = 0;
+	this.draws = 0;
+	this.loses = 0;
+	this.points = 0;
+	this.totalAnsweredQuestions = 0;
+	this.totalMaxQuestions = 0;
+	this.percents = 0;
 }
 
 // ko view model
@@ -372,15 +413,22 @@ function tableTopCallback(data) {
 	//console.log(toursCount);
 	for(var i = 0; i < toursCount / 2; i++)
 	{
-		var tourA = new Tour((i+1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
+		var leads = [];
+		var tourA = new Tour((i + 1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
+			if (item.leads != null)	{
+				leads.push(item.leads);
+			}
 			return new Result(item.name, parseInt(item.score));
 		}));
 
 		var tourB = new Tour((i + 1), "B", $.map(data[(i + 1) + "-B"].elements, function (item, i) {
+			if (item.leads != null) {
+				leads.push(item.leads);
+			}
 			return new Result(item.name, parseInt(item.score));
 		}));
 
-		tours.push(new CommonTour((i + 1), [], tourA, tourB)); // TODO: handle tour leads (instead fake empty []) 
+		tours.push(new CommonTour((i + 1), leads, tourA, tourB)); // TODO: handle tour leads (instead fake empty []) 
 	}
 	
 	//calculations
