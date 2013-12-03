@@ -44,10 +44,14 @@ td {
 		padding: 5px 6px 5px 9px;
 	}
 
+	td:nth-child(3n+12) {
+		border-right: 1px solid gray;
+
+	}
 
 
 tr:nth-child(3n) {
-	border-bottom: 1px dotted #bbb;
+	border-bottom: 1px solid gray;
 }
 
 .hover {
