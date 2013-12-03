@@ -517,6 +517,8 @@ function tableTopCallback(data) {
 
 	ko.applyBindings(microViewModel);
 	$('#spinnerMask').hide();
+	$('#mainTable').show();
+	$('#regards').show();
 }
 
 //entry point
