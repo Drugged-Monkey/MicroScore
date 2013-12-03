@@ -379,12 +379,10 @@ function isTeamUniq(name) {
 function tableTopCallback(data) {
 	console.log(data);
 	toursCount = Object.keys(data).length;
-	//console.log(toursCount);
-	for(var i = 0; i < toursCount / 2; i++)
-	{
+	for (var i = 0; i < toursCount / 2; i++) {
 		var leads = [];
 		var tourA = new Tour((i + 1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
-			if (item.leads != null)	{
+			if (item.leads != null) {
 				leads.push(item.leads);
 			}
 			return new Result(item.name, parseInt(item.score));
@@ -399,7 +397,7 @@ function tableTopCallback(data) {
 
 		tours.push(new CommonTour((i + 1), leads, tourA, tourB)); // TODO: handle tour leads (instead fake empty []) 
 	}
-	
+
 	//calculations
 	//fill teams array from tours array
 	$.each(tours, function (i, tour) {
