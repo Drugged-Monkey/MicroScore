@@ -5,6 +5,7 @@ var r2 = "<a href='https://twitter.com/drugged_monkey'>Саша Матюхин</
 var teams = [];
 var tours = [];
 var tourCount = 0;
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html';
 
 function ToursMatch(teamScore, guestScore) {
 	this.teamScore = teamScore;
@@ -375,40 +376,8 @@ function isTeamUniq(name) {
 	return flag;
 }
 
-// google spreadsheets part
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html';
-
-//entry point
-$(document).ready(function () {
-	
-
-	//events
-	$("#mainTable").on('click', function (args) {
-		cellClick(args.target);
-	});
-
-	$("#mask").on("click", function (e) {
-		microViewModel.clearWindow();
-	});
-
-	$(document).keydown(function (e) {
-		if (e.keyCode === 27) {
-			microViewModel.clearWindow();
-		}
-	});
-
-	//google spreadsheet init
-	Tabletop.init({
-		key: public_spreadsheet_url,
-		callback: tableTopCallback,
-		simpleSheet: false
-	})
-
-});
-
 function tableTopCallback(data) {
 	console.log(data);
-	$('#spinnerMask').hide();
 	toursCount = Object.keys(data).length;
 	//console.log(toursCount);
 	for(var i = 0; i < toursCount / 2; i++)
@@ -546,6 +515,31 @@ function tableTopCallback(data) {
 		$("#mainTable tbody tr").append("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\" class='clickable'></td>");
 	});
 
-	ko.applyBindings(microViewModel); 
+	ko.applyBindings(microViewModel);
+	$('#spinnerMask').hide();
 }
 
+//entry point
+$(document).ready(function () {
+	//events
+	$("#mainTable").on('click', function (args) {
+		cellClick(args.target);
+	});
+
+	$("#mask").on("click", function (e) {
+		microViewModel.clearWindow();
+	});
+
+	$(document).keydown(function (e) {
+		if (e.keyCode === 27) {
+			microViewModel.clearWindow();
+		}
+	});
+
+	//google spreadsheet init
+	Tabletop.init({
+		key: public_spreadsheet_url,
+		callback: tableTopCallback,
+		simpleSheet: false
+	})
+});

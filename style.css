@@ -223,5 +223,9 @@ li {
 }
 
 .spinner {
-	background: url(spinner.gif) no-repeat center center rgba(0, 0, 0, 0.3) ;
+	background: url(spinner_.gif) no-repeat center center rgba(0, 0, 0, 0.3);
+}
+
+.scoreBack {
+	margin: 5px;
 }
