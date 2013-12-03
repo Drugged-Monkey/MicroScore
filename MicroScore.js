@@ -69,6 +69,7 @@ function MicroViewModel() {
 	self.isWindowVisible = ko.observable(false);
 	self.isMaskVisible = ko.observable(false);
 	self.isMergeVisible = ko.observable(false);
+	self.isUiVisible = ko.observable(false);
 
 	self.teams = ko.observableArray(teams);
 
@@ -514,14 +515,15 @@ function tableTopCallback(data) {
 	});
 
 	ko.applyBindings(microViewModel);
-	$('#spinnerMask').hide();
-	$('#mainTable').show();
-	$('#regards').show();
+	$("#mainTable").show();
+	$(".footer").show();
 }
 
 //entry point
 $(document).ready(function () {
 	//events
+	$("#mainTable").hide();
+	$(".footer").hide();
 	$("#mainTable").on('click', function (args) {
 		cellClick(args.target);
 	});

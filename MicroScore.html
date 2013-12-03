@@ -21,7 +21,7 @@
 			Alphabet 
 		</div>
 	</div>
-	<table id="mainTable" style="display: none;">
+	<table id="mainTable">
 		<thead>
 			<tr>
 				<th>Место</th>
@@ -51,7 +51,7 @@
 	</table>
 
 	<div id="mask" class="mask" data-bind="visible: isMaskVisible" style="display: block"></div>
-	<div id="spinnerMask" class="mask spinner"></div>
+	<div id="spinnerMask" class="mask spinner"  data-bind="visible: !isUiVisible"></div>
 	<div id="container" class="container" data-bind="visible: isWindowVisible" style="display: none">
 		<div id="top">
 			<div id="first">
@@ -92,10 +92,17 @@
 		</div>
 	</div>
 
-	<div id="regards" style="display: none;">
+	<div class="footer">
 		<div data-bind="html: firstPerson"></div>
 		<div data-bind="html: secondPerson"></div>
 		<div>(c) 2013</div>
 	</div>
+
+	<div class="footer">
+		<div><a href="http://jquery.com/">Thanks to jQuery</a></div>
+		<div><a href="http://knockoutjs.com/">Thanks to knockout.js</a></div>
+		<div><a href="https://github.com/jsoma/tabletop">Thanks to tabletop.js</a></div>
+	</div>
+
 </body>
 </html>

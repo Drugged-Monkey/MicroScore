@@ -205,16 +205,16 @@ li {
 	cursor: pointer;
 }
 
-#regards {
+.footer {
 	background: #eeeeee;
 	border: 2px solid gray;
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
+	margin: 10px;
+	float: left;
+	width: 200px;
 }
 
 #mainTable {
-	margin-bottom: 80px;
+	margin-bottom: 25px;
 }
 
 #container ul {
