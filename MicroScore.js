@@ -37,7 +37,7 @@ function MicroViewModel() {
 	self.guestScore = ko.observable(0);
 
 	self.rand = ko.observable(getRandomInt(1, 2));
-	self.sortType = ko.observable(1);
+	self.sortType = ko.observable(1);	 // TODO: replace this ugly sorting switch (1 for point-based, 2 for alphabetical
 
 	//computed
 	self.matchesScore = ko.computed(function () {
@@ -335,13 +335,12 @@ function isTeamUniq(name) {
 }
 
 // google spreadsheets part
-//var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/ccc?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&usp=sharing';
-//var public_spreadsheet_url = '0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc';
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html';
 
 //entry point
 $(document).ready(function () {
-	//$('#spinnerMask').show();
+	
+
 	//events
 	$("#mainTable").on('click', function (args) {
 		cellClick(args.target);
@@ -360,13 +359,30 @@ $(document).ready(function () {
 	//google spreadsheet init
 	Tabletop.init({
 		key: public_spreadsheet_url,
-		callback: function (data) {
-			console.log(data);
-			$('#spinnerMask').hide();
-		} ,
+		callback: tableTopCallback,
 		simpleSheet: false
 	})
 
+});
+
+function tableTopCallback(data) {
+	console.log(data);
+	$('#spinnerMask').hide();
+	toursCount = Object.keys(data).length;
+	//console.log(toursCount);
+	for(var i = 0; i < toursCount / 2; i++)
+	{
+		var tourA = new Tour((i+1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
+			return new Result(item.name, parseInt(item.score));
+		}));
+
+		var tourB = new Tour((i + 1), "B", $.map(data[(i + 1) + "-B"].elements, function (item, i) {
+			return new Result(item.name, parseInt(item.score));
+		}));
+
+		tours.push(new CommonTour((i + 1), [], tourA, tourB)); // TODO: handle tour leads (instead fake empty []) 
+	}
+	
 	//calculations
 	//fill teams array from tours array
 	$.each(tours, function (i, tour) {
@@ -482,5 +498,6 @@ $(document).ready(function () {
 		$("#mainTable tbody tr").append("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\" class='clickable'></td>");
 	});
 
-	ko.applyBindings(microViewModel);
-});
+	ko.applyBindings(microViewModel); 
+}
+

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div>
+    <div style="display:none;">
         Options
         <div>
             <input type="radio" value="1" data-bind="checked: sortType" disabled="disabled" />
@@ -54,7 +54,7 @@
 
     <div id="mask" class="mask" data-bind="visible: isMaskVisible" style="display: block"></div>
 	<div id="spinnerMask" class="mask spinner"></div>
-    <div id="container" class="container" data-bind="visible: isWindowVisible">
+    <div id="container" class="container" data-bind="visible: isWindowVisible" style="display: none">
         <div id="top">
             <div id="first">
                 <span data-bind="text: teamName"></span>
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <div id="mergeContainer" class="container" data-bind="visible: isMergeVisible">
+    <div id="mergeContainer" class="container" data-bind="visible: isMergeVisible" style="display: none">
         <div>
             Merge Window
         </div>
