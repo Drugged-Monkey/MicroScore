@@ -460,7 +460,7 @@ function tableTopCallback(data) {
 					team.loses += 1;
 					cell.style = "lose";
 				}
-				cell.value = match.teamScore + "\u2009:\u2009" + match.guestScore;
+				cell.value = match.teamScore + " : " + match.guestScore;
 			}
 			else {
 				cell.value = " — ";
