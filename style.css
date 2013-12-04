@@ -211,12 +211,10 @@ li {
 	background: #eeeeee;
 	border: 2px solid gray;
 	margin: 10px;
+	padding: 5px;
 	float: left;
-	width: 200px;
-}
-
-#mainTable {
-	margin-bottom: 25px;
+	width: 130px;
+	height: 25px;
 }
 
 #container ul {
