@@ -542,7 +542,6 @@ function tableTopCallback(data) {
     var $bodyTrs = $mainTable.find('tbody tr');
 
     $.each(teams, function (i, team) {
-        console.log(team);
         var $th = $('<th>');
         $th.addClass('clickable');
         $th.data('teamplace', i + 1);
