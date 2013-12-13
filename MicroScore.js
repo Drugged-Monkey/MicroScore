@@ -159,7 +159,7 @@ function cellClick(cell) {
                 });
 
                 if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //both !tour lead
-                    if (teamAResult != undefined && guestAResult != undefined) { //both in A 
+                    if (teamAResult != undefined && guestAResult != undefined) { //both in A
                         isTeamLead = false;
                         isGuestLead = false;
                         isTeamB = false;
@@ -212,7 +212,7 @@ function cellClick(cell) {
                         guestScore = 0;
 
                         microViewModel.teamScore(microViewModel.teamScore() + 1);
-                    } else if (teamBResult == undefined && guestBResult != undefined) {//team not in B (and not in A) B, guest in B 
+                    } else if (teamBResult == undefined && guestBResult != undefined) {//team not in B (and not in A) B, guest in B
                         isTeamLead = false;
                         isGuestLead = false;
                         isTeamB = null;
@@ -537,9 +537,23 @@ function tableTopCallback(data) {
             }
     }
 
+    var $mainTable = $('#mainTable');
+    var $headTrs = $mainTable.find('thead tr');
+    var $bodyTrs = $mainTable.find('tbody tr');
+
     $.each(teams, function (i, team) {
-        $("#mainTable thead tr").append("<th class='clickable' data-teamplace='" + (i + 1) + "' data-teamname='" + team.teamName + "'>" + (i + 1) + "</th>");
-        $("#mainTable tbody tr").append("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\" class='clickable'></td>");
+        console.log(team);
+        var $th = $('<th>');
+        $th.addClass('clickable');
+        $th.data('teamplace', i + 1);
+        $th.data('teamname', team.teamName);
+        $th.text(i + 1);
+        $headTrs.append($th);
+
+        var $td = $("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style , attr: { 'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\"</td>");
+        $td.addClass('clickable');
+        $td.attr('title', getNameById(team.teamId));
+        $bodyTrs.append($td);
     });
 
     ko.applyBindings(microViewModel);
