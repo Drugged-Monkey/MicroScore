@@ -545,7 +545,7 @@ function tableTopCallback(data) {
     ko.applyBindings(microViewModel);
     $("#mainTable").show();
     $(".footer").show();
-    //$("#commonInfo").show();
+    $("#commonInfo").show();
 }
 
 //entry point

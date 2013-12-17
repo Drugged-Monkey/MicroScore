@@ -229,3 +229,11 @@ li {
 .scoreBack {
 	margin: 5px;
 }
+
+#commonInfo tr td:first-child {
+	text-align: right;
+}
+
+#commonInfo tr td:last-child {
+	  text-align: left;
+}
