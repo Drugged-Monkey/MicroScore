@@ -282,7 +282,8 @@ function cellHover() {
 		$("#floatingTitle").show();
 	}
 	else {
-		$("#floatingTitle").hide();
+		microViewModel.teamName("");
+		microViewModel.guestName("");
 	}
 }
 
