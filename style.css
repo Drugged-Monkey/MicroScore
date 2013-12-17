@@ -30,23 +30,23 @@ td {
 	padding: 5px 6px 5px 6px;
 }
 
-td:nth-child(2), th:nth-child(2) {
-	text-align: left;
-	padding: 5px 0px 5px 2px;
-}
+	td:nth-child(2), th:nth-child(2) {
+		text-align: left;
+		padding: 5px 0px 5px 2px;
+	}
 
-td:nth-child(7) {
-	border-right: 1px dotted #ccc;
-	padding: 5px 9px 5px 4px;
-}
+	td:nth-child(7) {
+		border-right: 1px dotted #ccc;
+		padding: 5px 9px 5px 4px;
+	}
 
-td:nth-child(8) {
-	padding: 5px 6px 5px 9px;
-}
+	td:nth-child(8) {
+		padding: 5px 6px 5px 9px;
+	}
 
-td:nth-child(3n+12) {
-	border-right: 1px solid gray;
-}
+	td:nth-child(3n+12) {
+		border-right: 1px solid gray;
+	}
 
 tr:nth-child(3n) {
 	border-bottom: 1px solid gray;
@@ -230,10 +230,26 @@ li {
 	margin: 5px;
 }
 
-#commonInfo tr td:first-child {
-	text-align: right;
+.header {
+	background: #eeeeee;
+	border: 2px solid gray;
+	margin: 10px;
+	float: left;
+	width: 450px;
 }
+	
+	.header tr td:first-child {
+		text-align: right;
+	}
 
-#commonInfo tr td:last-child {
-	  text-align: left;
+	.header tr td:last-child {
+		text-align: left;
+	}
+
+#floatingTitle {
+	background: white;
+	 border: 2px solid gray;
+	right: 10px;
+	top: 10px;
+	 position: fixed;
 }

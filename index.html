@@ -1,8 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>
-		Микроматчи сезона 2013/14
+	<title>Микроматчи сезона 2013/14
 	</title>
 	<meta http-equiv="Content-Language" content="ru">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,19 +14,17 @@
 </head>
 
 <body>
-	<table id="commonInfo" style="float: left">
+	<table class="header" style="float: left">
 		<tbody>
 			<tr>
-				<td>
-					Последний учтённый тур:
+				<td>Последний учтённый тур:
 				</td>
 				<td>
 					<span data-bind="text: lastTour" style="font-weight: bold"></span>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					Состояние  результатов:
+				<td>Состояние  результатов:
 				</td>
 				<td>
 					<span data-bind="text: lastTourType" style="font-weight: bold"></span>
@@ -35,6 +32,23 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<table id="floatingTitle">
+		<tbody>
+			<tr>
+				<td>
+					<span data-bind="text: teamName"></span>
+				</td>
+				<td>
+					<span>— </span>
+				</td>
+				<td>
+					<span data-bind="text: guestName"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
 	<div style="display: none;">
 		Options
         <div>
