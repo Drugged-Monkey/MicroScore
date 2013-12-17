@@ -237,7 +237,7 @@ li {
 	float: left;
 	width: 450px;
 }
-	
+
 	.header tr td:first-child {
 		text-align: right;
 	}
@@ -248,8 +248,18 @@ li {
 
 #floatingTitle {
 	background: white;
-	 border: 2px solid gray;
+	border: 2px solid gray;
 	right: 10px;
 	top: 10px;
-	 position: fixed;
+	position: fixed;
 }
+
+	#floatingTitle tr td:first-child {
+		min-width: 260px;
+		text-align: right;
+	}
+
+	#floatingTitle tr td:last-child {
+		min-width: 260px;
+		text-align: left;
+	}
