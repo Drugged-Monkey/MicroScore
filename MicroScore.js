@@ -12,13 +12,14 @@ function ToursMatch(teamScore, guestScore) {
 	this.guestScore = guestScore;
 }
 
-function TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB) {
+function TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, tourLabel) {
 	this.teamScore = teamScore;
 	this.guestScore = guestScore;
 	this.isTeamLead = isTeamLead;
 	this.isGuestLead = isGuestLead;
 	this.isTeamB = isTeamB;
 	this.isGuestB = isGuestB;
+	this.tourLabel = tourLabel;
 }
 
 function overridenResult(teamName, teamId, score) {
@@ -68,7 +69,6 @@ function MicroViewModel() {
 	// observables
 	self.isWindowVisible = ko.observable(false);
 	self.isMaskVisible = ko.observable(false);
-	self.isMergeVisible = ko.observable(false);
 	self.isUiVisible = ko.observable(false);
 
 	self.teams = ko.observableArray(teams);
@@ -141,6 +141,7 @@ function cellClick(cell) {
 			microViewModel.guestName(getNameById(guestId));
 
 			$.each(tours, function (i, tour) {
+				var k = i + 1;
 				var teamAResult, teamBResult, guestAResult, guestBResult;
 				$.each(tour.A.results, function (j, result) {
 					if (result.teamId == teamId) {
@@ -158,39 +159,8 @@ function cellClick(cell) {
 					}
 				});
 
-				if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //both !tour lead
-					if (teamAResult != undefined && guestAResult != undefined) { //both in A
-						isTeamLead = false;
-						isGuestLead = false;
-						isTeamB = false;
-						isGuestB = false;
-						teamScore = teamAResult.score;
-						guestScore = guestAResult.score;
-
-						if (teamScore > guestScore) {
-							microViewModel.teamScore(microViewModel.teamScore() + 1);
-						} else if (teamScore < guestScore) {
-							microViewModel.guestScore(microViewModel.guestScore() + 1);
-						}
-					} else if (teamAResult != undefined && guestAResult == undefined) { //team in A, guest in B(?)
-						isTeamLead = false;
-						isGuestLead = false;
-						isTeamB = false;
-						isGuestB = true;
-						teamScore = teamAResult.score;
-						guestScore = 0;
-
-						microViewModel.teamScore(microViewModel.teamScore() + 1);
-					} else if (teamAResult == undefined && guestAResult != undefined) { //team in B(???), guest in A
-						isTeamLead = false;
-						isGuestLead = false;
-						isTeamB = true;
-						isGuestB = false;
-						teamScore = 0;
-						guestScore = guestAResult.score;
-
-						microViewModel.guestScore(microViewModel.guestScore() + 1);
-					} else if (teamBResult != undefined && guestBResult != undefined) { //team in B, guest in B
+				if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //нахер английский т.е. обе вели тур
+					if (teamBResult != undefined && guestBResult != undefined) { //обе играли лигу Б
 						isTeamLead = false;
 						isGuestLead = false;
 						isTeamB = true;
@@ -203,31 +173,86 @@ function cellClick(cell) {
 						} else if (teamScore < guestScore) {
 							microViewModel.guestScore(microViewModel.guestScore() + 1);
 						}
-					} else if (teamBResult != undefined && guestBResult == undefined) { //team in B, guest not in B (and not in A)
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-B"));
+					}
+
+					if (teamAResult != undefined && guestAResult != undefined) { //обе играли лигу А
 						isTeamLead = false;
 						isGuestLead = false;
-						isTeamB = true;
-						isGuestB = null;
-						teamScore = teamBResult.score;
+						isTeamB = false;
+						isGuestB = false;
+						teamScore = teamAResult.score;
+						guestScore = guestAResult.score;
+
+						if (teamScore > guestScore) {
+							microViewModel.teamScore(microViewModel.teamScore() + 1);
+						} else if (teamScore < guestScore) {
+							microViewModel.guestScore(microViewModel.guestScore() + 1);
+						}
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A"));
+					}
+
+					if (teamAResult != undefined && teamBResult == undefined
+						&& guestAResult == undefined && guestBResult != undefined) { //хозяева играли в А, не играли в Б, гости не вышли из Б
+						isTeamLead = false;
+						isGuestLead = false;
+						isTeamB = false;
+						isGuestB = true;
+						teamScore = teamAResult.score;
 						guestScore = 0;
 
 						microViewModel.teamScore(microViewModel.teamScore() + 1);
-					} else if (teamBResult == undefined && guestBResult != undefined) {//team not in B (and not in A) B, guest in B
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A"));
+					}
+
+					if (teamAResult == undefined && teamBResult != undefined
+						&& guestAResult != undefined && guestBResult == undefined) { //гости играли в А, не играли в Б, хозяева не вышли из Б
+						isTeamLead = false;
+						isGuestLead = false;
+						isTeamB = true;
+						isGuestB = false;
+						teamScore = 0;
+						guestScore = guestAResult.score;
+
+						microViewModel.guestScore(microViewModel.guestScore() + 1);
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A"));
+					}
+
+					if ((teamAResult != undefined || teamBResult != undefined)
+						&& guestAResult == undefined && guestBResult == undefined) { //хозяева играли в любой из лиг, гости ни в одной из лиг
+						isTeamLead = false;
+						isGuestLead = false;
+						isTeamB = teamBResult != undefined && teamAResult == undefined;
+						isGuestB = null;
+						teamScore = teamAResult != undefined ? teamAResult.score : teamBResult.score;
+						guestScore = 0;
+
+						microViewModel.teamScore(microViewModel.teamScore() + 1);
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isTeamB ? "B" : "A")));
+					}
+
+					if (teamAResult == undefined && teamBResult == undefined 
+						&& (guestAResult != undefined || guestBResult != undefined)) {//гости играли в любой из лиг, хозяева ни в одной из лиг
 						isTeamLead = false;
 						isGuestLead = false;
 						isTeamB = null;
-						isGuestB = true;
+						isGuestB = guestBResult != undefined && guestAResult == undefined;
 						teamScore = 0;
-						guestScore = guestBResult.score;
+						guestScore = guestAResult != undefined ? guestAResult.score : guestBResult.score;
 
 						microViewModel.guestScore(microViewModel.guestScore() + 1);
-					} else { //both teams not in B
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isGuestB ? "B" : "A")));
+					}
+
+					if (teamAResult == undefined && guestAResult == undefined
+						&& teamBResult == undefined && guestBResult == undefined) { //обе пропустили
 						isTeamLead = false;
 						isGuestLead = false;
 						isTeamB = null;
 						isGuestB = null;
 						teamScore = 0;
 						guestScore = 0;
+						microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A(B)"));
 					}
 				}
 				else if ($.inArray(teamName, tour.leads) > -1 && $.inArray(guestName, tour.leads) == -1) { //team is tour lead
@@ -237,6 +262,7 @@ function cellClick(cell) {
 					isGuestB = guestAResult == undefined;
 					teamScore = 0;
 					guestScore = guestAResult != undefined ? guestAResult.score : (guestBResult != undefined ? guestBResult.score : 0);
+					microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isGuestB ? "B" : "A")));
 				}
 				else if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) > -1) { //guest is tour lead
 					isTeamLead = false;
@@ -245,6 +271,7 @@ function cellClick(cell) {
 					isGuestB = false;
 					teamScore = teamAResult != undefined ? teamAResult.score : (teamBResult != undefined ? teamBResult.score : 0);
 					guestScore = 0;
+					microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isTeamB ? "B" : "A")));
 				}
 				else { //both is tour leads
 					isTeamLead = true;
@@ -253,9 +280,8 @@ function cellClick(cell) {
 					isGuestB = false;
 					teamScore = 0;
 					guestScore = 0
+					microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A(B)"));
 				}
-
-				microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB));
 			});
 		}
 
@@ -317,28 +343,37 @@ function compareResults(team, guest) {
 			}
 		});
 
-		if ($.inArray(team.teamName, tour.leads) == -1 && $.inArray(guest.teamName, tour.leads) == -1) {
-			if (teamAResult != undefined && guestAResult != undefined) {
+		if ($.inArray(team.teamName, tour.leads) == -1 && $.inArray(guest.teamName, tour.leads) == -1) {			
+			if (teamAResult != undefined && guestAResult != undefined) { //обе играли лигу А
 				if (teamAResult.score > guestAResult.score) {
 					teamScore += 1;
 				}
 				else if (teamAResult.score < guestAResult.score) {
 					guestScore += 1;
-				}
-			} else if (teamAResult != undefined && guestAResult == undefined) {
-				teamScore += 1;
-			} else if (teamAResult == undefined && guestAResult != undefined) {
-				guestScore += 1;
-			} else if (teamBResult != undefined && guestBResult != undefined) {
+				}  
+			}
+			if (teamBResult != undefined && guestBResult != undefined) { //обе играли лигу Б
 				if (teamBResult.score > guestBResult.score) {
 					teamScore += 1;
 				}
 				else if (teamBResult.score < guestBResult.score) {
 					guestScore += 1;
-				}
-			} else if (teamBResult != undefined && guestBResult == undefined) {
+				}		
+			} 
+			if (teamAResult != undefined && teamBResult == undefined
+				&& guestAResult == undefined && guestBResult != undefined) { //хозяева играли в А, не играли в Б, гости не вышли из Б
 				teamScore += 1;
-			} else if (teamBResult == undefined && guestBResult != undefined) {
+			}
+			if (teamAResult == undefined && teamBResult != undefined
+				&& guestAResult != undefined && guestBResult == undefined) { //гости играли в А, не играли в Б, хозяева не вышли из Б
+				guestScore += 1;
+			}
+			if ((teamAResult != undefined || teamBResult != undefined)
+				&& guestAResult == undefined && guestBResult == undefined) { //хозяева играли в любой из лиг, гости ни в одной из лиг
+				teamScore += 1;
+			}
+			if (teamAResult == undefined && teamBResult == undefined 
+				&& (guestAResult != undefined || guestBResult != undefined)) {//гости играли в любой из лиг, хозяева ни в одной из лиг
 				guestScore += 1;
 			}
 		}

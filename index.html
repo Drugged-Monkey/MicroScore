@@ -106,6 +106,9 @@
 		<div id="results">
 			<ul data-bind="foreach: matches">
 				<li>
+					<div class="tourLabel" data-bind="text: tourLabel + ':'">
+						
+					</div>
 					<div class="left">
 						<span data-bind="text: isTeamLead ? 'Вели тур' : (isTeamB == null ? '0 (Н)' : (!isTeamB ? teamScore : (isTeamB && isGuestB ? teamScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isTeamLead && !isGuestLead && (teamScore > guestScore) }"></span>
 					</div>
@@ -118,14 +121,6 @@
 
 			<button title="Close (Esc)" type="button" class="mfp-close" data-bind="click: clearWindow">×</button>
 
-		</div>
-	</div>
-
-	<div id="mergeContainer" class="container" data-bind="visible: isMergeVisible" style="display: none">
-		<div>
-			Merge Window
-		</div>
-		<div id="commands">
 		</div>
 	</div>
 

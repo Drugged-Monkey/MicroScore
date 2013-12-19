@@ -113,8 +113,14 @@ a.popup-link {
 	cursor: pointer;
 }
 
+.tourLabel {
+	width: 20%;
+	float: left;
+	font-weight: bold;
+}
+
 .left {
-	width: 48%;
+	width: 28%;
 	float: left;
 	text-align: right;
 }
