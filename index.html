@@ -110,11 +110,11 @@
 						
 					</div>
 					<div class="left">
-						<span data-bind="text: isTeamLead ? 'Вели тур' : (isTeamB == null ? '0 (Н)' : (!isTeamB ? teamScore : (isTeamB && isGuestB ? teamScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isTeamLead && !isGuestLead && (teamScore > guestScore) }"></span>
+						<span data-bind="text: isTeamLead ? 'Вели тур' : (isTeamB == null ? '0 (Н)' : (!isTeamB ? teamScore : (isTeamB && (isGuestB || isGuestB == null)  ? teamScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isTeamLead && !isGuestLead && (teamScore > guestScore) }"></span>
 					</div>
 					<div class="center">:</div>
 					<div class="right">
-						<span data-bind="text: isGuestLead ? 'Вели тур' : (isGuestB == null ? '0 (Н)' : (!isGuestB ? guestScore : (isTeamB && isGuestB ? guestScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isGuestLead && !isTeamLead && (teamScore < guestScore) }"></span>
+						<span data-bind="text: isGuestLead ? 'Вели тур' : (isGuestB == null ? '0 (Н)' : (!isGuestB ? guestScore : ((isTeamB || isTeamB == null) && isGuestB ? guestScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isGuestLead && !isTeamLead && (teamScore < guestScore) }"></span>
 					</div>
 				</li>
 			</ul>
