@@ -280,7 +280,7 @@ function cellClick(cell) {
 					isGuestB = false;
 					teamScore = 0;
 					guestScore = 0
-					microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-A(B)"));
+					microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А(Б)"));
 				}
 			});
 		}
