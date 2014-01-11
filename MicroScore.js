@@ -631,6 +631,7 @@ function tableTopCallback(data) {
     $("#mainTable").show();
     $(".footer").show();
     $(".header").show();
+    $(".placeBackground").show();
 }
 
 //entry point
@@ -640,6 +641,7 @@ $(document).ready(function () {
     $(".footer").hide();
     $(".header").hide();
     $("#floatingTitle").hide();
+    $(".placeBackground").hide();
 
     $("#mainTable").on('click', function (args) {
         cellClick(args.target);

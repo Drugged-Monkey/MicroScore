@@ -1,272 +1,316 @@
 body {
-	font-family: 'PT Sans', sans-serif;
-	font-size: 16px;
-	border-collapse: collapse;
-	text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    border-collapse: collapse;
+    text-align: center;
 }
 
 .gray {
-	color: #DDD;
+    color: #DDD;
 }
 
 table {
-	line-height: 1.6em;
-	font-size: 1.25em;
-	border-collapse: collapse;
-	text-align: center;
-	white-space: nowrap;
-	cursor: default;
+    line-height: 1.6em;
+    font-size: 1.25em;
+    border-collapse: collapse;
+    text-align: center;
+    white-space: nowrap;
+    cursor: default;
 }
 
 th {
-	font-weight: normal;
-	color: #111;
-	padding: 10px 10px;
-	border-bottom: 1px dotted #ccc;
+    font-weight: normal;
+    color: #111;
+    padding: 10px 10px;
+    border-bottom: 1px dotted #ccc;
 }
 
 td {
-	color: #111;
-	padding: 5px 6px 5px 6px;
+    color: #111;
+    padding: 5px 6px 5px 6px;
 }
 
-	td:nth-child(2), th:nth-child(2) {
-		text-align: left;
-		padding: 5px 0px 5px 2px;
-	}
+    td:nth-child(2), th:nth-child(2) {
+        text-align: left;
+        padding: 5px 0px 5px 2px;
+    }
 
-	td:nth-child(7) {
-		border-right: 1px dotted #ccc;
-		padding: 5px 9px 5px 4px;
-	}
+    td:nth-child(7) {
+        border-right: 1px dotted #ccc;
+        padding: 5px 9px 5px 4px;
+    }
 
-	td:nth-child(8) {
-		padding: 5px 6px 5px 9px;
-	}
+    td:nth-child(8) {
+        padding: 5px 6px 5px 9px;
+    }
 
-	td:nth-child(3n+12) {
-		border-right: 1px solid gray;
-	}
+    td:nth-child(3n+12) {
+        border-right: 1px solid gray;
+    }
 
 tr:nth-child(3n) {
-	border-bottom: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
 
 .hover {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 .team-number {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .popup {
-	position: relative;
-	background: #FFF;
-	padding: 20px;
-	width: auto;
-	max-width: 500px;
-	margin: 20px auto;
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
 }
 
 a.popup-link {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .space {
-	margin-left: 0.5em;
+    margin-left: 0.5em;
 }
 
 #first, #second {
-	font-size: 24px;
-	padding-top: 20px;
+    font-size: 24px;
+    padding-top: 20px;
 }
 
 #first {
-	float: left;
-	width: 40%;
+    float: left;
+    width: 40%;
 }
 
 #second {
-	float: center;
+    float: center;
 }
 
 #score {
-	float: left;
-	width: 20%;
-	padding-top: 22px;
-	font-size: 42px;
+    float: left;
+    width: 20%;
+    padding-top: 22px;
+    font-size: 42px;
 }
 
 #top {
-	height: 100px;
-	border-bottom: 1px dotted;
+    height: 100px;
+    border-bottom: 1px dotted;
 }
 
 #results {
-	padding-top: 10px;
-	font-size: 24px;
-	line-height: 1.6em;
+    padding-top: 10px;
+    font-size: 24px;
+    line-height: 1.6em;
     min-height: 250px;
 }
 
 .pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .tourLabel {
-	width: 13%;
-	float: left;
-	font-weight: bold;
+    width: 13%;
+    float: left;
+    font-weight: bold;
 }
 
 .left {
-	width: 35%;
-	float: left;
-	text-align: right;
+    width: 35%;
+    float: left;
+    text-align: right;
 }
 
 .center {
-	width: 4%;
-	float: left;
-	text-align: center;
+    width: 4%;
+    float: left;
+    text-align: center;
 }
 
 .right {
-	width: 48%;
-	float: left;
-	text-align: left;
+    width: 48%;
+    float: left;
+    text-align: left;
 }
 
 .littleB {
-	font-size: 80%;
-	line-height: 80%;
+    font-size: 80%;
+    line-height: 80%;
 }
 
 .mfp-close {
-	position: absolute;
-	right: 0;
-	top: 0;
-	text-decoration: none;
-	text-align: center;
-	opacity: 0.3;
-	font-style: normal;
-	font-size: 28px;
-	font-family: Arial, Baskerville, monospace;
-	text-align: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.3;
+    font-style: normal;
+    font-size: 28px;
+    font-family: Arial, Baskerville, monospace;
+    text-align: right;
 }
 
-	.mfp-close:hover, .mfp-close:focus {
-		opacity: 0.6;
-	}
+    .mfp-close:hover, .mfp-close:focus {
+        opacity: 0.6;
+    }
 
-	.mfp-close:active {
-		top: 1px;
-	}
+    .mfp-close:active {
+        top: 1px;
+    }
 
 .boldText {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 li {
-	list-style: none;
+    list-style: none;
 }
 
 .container {
-	min-width: 600px;
-	min-height: 400px;
-	position: fixed;
-	width: auto;
-	background-color: rgb(255, 255, 255);
-	z-index: 9999;
-	box-shadow: 0px 0px 20px rgb(50, 50, 50);
+    min-width: 600px;
+    min-height: 400px;
+    position: fixed;
+    width: auto;
+    background-color: rgb(255, 255, 255);
+    z-index: 9999;
+    box-shadow: 0px 0px 20px rgb(50, 50, 50);
 }
 
 .mask {
-	height: 543px;
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	height: 100%;
-	width: 100%;
-	background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);
-	opacity: 0.99;
-	z-index: 9999;
+    height: 543px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);
+    opacity: 0.99;
+    z-index: 9999;
 }
 
 .win {
-	background: #B9FFAB;
+    background: #B9FFAB;
 }
 
 .draw {
-	background: #FCFFBA;
+    background: #FCFFBA;
 }
 
 .lose {
-	background: #FF8880;
+    background: #FF8880;
 }
 
 .self {
-	background: lightgray;
+    background: lightgray;
 }
 
 .clickable {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .footer {
-	background: #eeeeee;
-	border: 2px solid gray;
-	margin: 10px;
-	padding: 5px;
-	float: left;
-	width: 130px;
-	height: 25px;
+    background: #eeeeee;
+    border: 2px solid gray;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+    width: 130px;
+    height: 25px;
 }
 
 #container ul {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .spinner {
-	background: url(spinner.gif) no-repeat center center rgba(0, 0, 0, 0.3);
+    background: url(spinner.gif) no-repeat center center rgba(0, 0, 0, 0.3);
 }
 
 .scoreBack {
-	margin: 5px;
+    margin: 5px;
 }
 
 .header {
-	background: #eeeeee;
-	border: 2px solid gray;
-	margin: 10px;
-	float: left;
-	width: 450px;
+    background: #eeeeee;
+    border: 2px solid gray;
+    margin: 10px;
+    float: left;
+    width: 450px;
 }
 
-	.header tr td:first-child {
-		text-align: right;
-	}
+    .header tr td:first-child {
+        text-align: right;
+    }
 
-	.header tr td:last-child {
-		text-align: left;
-	}
+    .header tr td:last-child {
+        text-align: left;
+    }
 
 #floatingTitle {
-	background: #eeeeee;
-	border: 2px solid gray; 
-	right: 10px;
-	top: 10px;
-	position: fixed;
+    background: #eeeeee;
+    border: 2px solid gray;
+    right: 10px;
+    top: 10px;
+    position: fixed;
 }
 
-	#floatingTitle tr td:first-child {
-		min-width: 260px;
-		text-align: right;
-	}
+    #floatingTitle tr td:first-child {
+        min-width: 260px;
+        text-align: right;
+    }
 
-	#floatingTitle tr td:last-child {
-		min-width: 260px;
-		text-align: left;
-	}
+    #floatingTitle tr td:last-child {
+        min-width: 260px;
+        text-align: left;
+    }
+
+.placeBackground {
+    min-width: 640px;
+    min-height: 43px;
+    position: absolute;
+    left: 10px;
+    z-index: -10;
+}
+
+.gold {
+    top: 168px;
+    background: #f1da36; /* Old browsers */
+    background: -moz-linear-gradient(left, #f1da36 0%, #fefefe 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f1da36), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #f1da36 0%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #f1da36 0%,#fefefe 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #f1da36 0%,#fefefe 100%); /* IE10+ */
+    background: linear-gradient(to right, #f1da36 0%,#fefefe 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#fefcea',GradientType=1 ); /* IE6-9 */
+}
+
+.silver {
+    top: 211px;
+    background: #b2b2b2; /* Old browsers */
+    background: -moz-linear-gradient(left, #b2b2b2 0%, #fefefe 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#b2b2b2), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); /* IE10+ */
+    background: linear-gradient(to right, #b2b2b2 0%,#fefefe 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2b2b2', endColorstr='#fefefe',GradientType=1 ); /* IE6-9 */
+}
+
+.bronze {
+    top: 254px;
+    background: #bfa072; /* Old browsers */
+    background: -moz-linear-gradient(left, #bfa072 0%, #fefefe 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfa072), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #bfa072 0%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #bfa072 0%,#fefefe 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #bfa072 0%,#fefefe 100%); /* IE10+ */
+    background: linear-gradient(to right, #bfa072 0%,#fefefe 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfa072', endColorstr='#e9d4b3',GradientType=1 ); /* IE6-9 */
+}
