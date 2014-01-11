@@ -285,7 +285,7 @@ function cellClick(cell) {
             $('#results')
             .css('background', 'url(flame-large.png)')
             .css('background-repeat', 'no-repeat')
-            .css('background-position', '65px -50px')
+            .css('background-position', '65px -35px')
            // .css('background-position', '250px -40px')
             .css('background-size', '80%');
         }
@@ -626,7 +626,7 @@ function tableTopCallback(data) {
     $(".derby")
         .css("border", '1px lightgray solid')
         .css('background', 'url(flame.png) no-repeat')
-        .css('background-position', '12px 0px')
+        .css('background-position', '12px 2px')
         .css('background-size', '55%');
     $("#mainTable").show();
     $(".footer").show();
