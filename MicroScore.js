@@ -116,6 +116,7 @@ function cellClick(cell) {
     var teamPlace = $(cell).data("teamplace");
     var teamName = $(cell).data("teamname");
     var cellVal = $(cell).data("val");
+    var derbyFlag = $(cell).hasClass("derby");
 
     if (teamId && guestId && teamId != guestId) {
         var teamName = getNameById(teamId);
@@ -126,7 +127,6 @@ function cellClick(cell) {
         var guestScore = 0;
         var isGuestLead = false;
         var isGuestB = false;
-
 
         microViewModel.clearWindow();
 
@@ -278,9 +278,24 @@ function cellClick(cell) {
                 }
             });
         }
-
         microViewModel.isWindowVisible(true);
         microViewModel.isMaskVisible(true);
+
+        if (derbyFlag) {
+            $('#results')
+            .css('background', 'url(flame-large.png)')
+            .css('background-repeat', 'no-repeat')
+            .css('background-position', '65px -50px')
+           // .css('background-position', '250px -40px')
+            .css('background-size', '80%');
+        }
+        else {
+            $('#results')
+            .css('background', '')
+            .css('background-repeat', '')
+            .css('background-position', '')
+            .css('background-size', '');
+        }
         resizeWindow();
     } else if (teamPlace && teamName) {
         if (parseInt($(cell).html()) > 0) {
@@ -604,12 +619,15 @@ function tableTopCallback(data) {
 
         var $td = $("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style, attr: {'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\"</td>");
         $td.addClass('clickable');
-        //$td.attr('title', getNameById(team.teamId));
         $bodyTrs.append($td);
     });
 
     ko.applyBindings(microViewModel);
-    $(".derby").css("border", "1px lightgray solid").attr('title', "да-да");
+    $(".derby")
+        .css("border", '1px lightgray solid')
+        .css('background', 'url(flame.png) no-repeat')
+        .css('background-position', '12px 0px')
+        .css('background-size', '55%');
     $("#mainTable").show();
     $(".footer").show();
     $(".header").show();
