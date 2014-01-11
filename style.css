@@ -254,7 +254,7 @@ li {
 
 #floatingTitle {
 	background: #eeeeee;
-	border: 2px solid gray;
+	border: 2px solid gray; 
 	right: 10px;
 	top: 10px;
 	position: fixed;
