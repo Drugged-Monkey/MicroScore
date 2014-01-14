@@ -626,6 +626,25 @@ function tableTopCallback(data) {
     $(".placeBackground").show();
 }
 
+function getOffsetRect(elem) {
+    var box = elem.getBoundingClientRect()
+    var body = document.body
+    var docElem = document.documentElement
+    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop
+    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft
+    var clientTop = docElem.clientTop || body.clientTop || 0
+    var clientLeft = docElem.clientLeft || body.clientLeft || 0
+    var top = box.top + scrollTop - clientTop
+    var left = box.left + scrollLeft - clientLeft
+    return { top: Math.round(top), left: Math.round(left) }
+}
+
+function placePlace(index, elem) {
+    var position = getOffsetRect($("#mainTable tbody tr")[index]);
+    elem.css("top", position.top);
+    elem.css("left", position.left);
+}
+
 //entry point
 $(document).ready(function () {
     //events
@@ -641,6 +660,12 @@ $(document).ready(function () {
 
     $("#mainTable").delegate("td", "mouseover mousemove mouseenter", cellHover);
     $("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
+
+    $(window).resize(function () {
+        placePlace(0, $(".gold"));
+        placePlace(1, $(".silver"));
+        placePlace(2, $(".bronze"));
+    });
 
     $("#mask").on("click", function (e) {
         microViewModel.clearWindow();
@@ -659,3 +684,4 @@ $(document).ready(function () {
         simpleSheet: false
     })
 });
+

@@ -271,23 +271,23 @@ li {
         text-align: left;
     }
 
+.derbyContainer {
+   background: url(flame_large.png);
+    background-repeat: no-repeat;
+    background-position: 230px 35px;
+}
+
 .placeBackground {
     min-width: 640px;
-    min-height: 43px;
+    min-height: 42px;
     position: absolute;
     left: 10px;
     z-index: -10;
 }
 
-.derbyContainer {
-   background: url(flame-large.png);
-    background-repeat: no-repeat;
-    background-position: 230px 35px;
-}
-
-/*.gold {
+.gold {
     top: 168px;
-    background: #f1da36; /
+    background: #f1da36;
     background: -moz-linear-gradient(left, #f1da36 0%, #fefefe 100%); 
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f1da36), color-stop(100%,#fefefe)); 
     background: -webkit-linear-gradient(left, #f1da36 0%,#fefefe 100%); 
@@ -319,4 +319,4 @@ li {
     background: -ms-linear-gradient(left, #bfa072 0%,#fefefe 100%); 
     background: linear-gradient(to right, #bfa072 0%,#fefefe 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfa072', endColorstr='#e9d4b3',GradientType=1 );
-}*/
+}
