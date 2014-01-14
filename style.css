@@ -279,7 +279,7 @@ li {
 
 .placeBackground {
     min-width: 640px;
-    min-height: 42px;
+    min-height: 43px;
     position: absolute;
     left: 10px;
     z-index: -10;
