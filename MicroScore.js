@@ -280,21 +280,13 @@ function cellClick(cell) {
         }
         microViewModel.isWindowVisible(true);
         microViewModel.isMaskVisible(true);
-
         if (derbyFlag) {
             $('#results')
-            .css('background', 'url(flame-large.png)')
-            .css('background-repeat', 'no-repeat')
-            .css('background-position', '65px -35px')
-           // .css('background-position', '250px -40px')
-            .css('background-size', '80%');
+            .addClass("derbyContainer");
         }
         else {
             $('#results')
-            .css('background', '')
-            .css('background-repeat', '')
-            .css('background-position', '')
-            .css('background-size', '');
+            .removeClass("derbyContainer");
         }
         resizeWindow();
     } else if (teamPlace && teamName) {
