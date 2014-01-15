@@ -624,6 +624,7 @@ function tableTopCallback(data) {
     $(".footer").show();
     $(".header").show();
     $(".placeBackground").show();
+	placePlaces();
 }
 
 function getOffsetRect(elem) {
@@ -645,6 +646,12 @@ function placePlace(index, elem) {
     elem.css("left", position.left);
 }
 
+function placePlaces(){
+	    placePlace(0, $(".gold"));
+        placePlace(1, $(".silver"));
+        placePlace(2, $(".bronze"));
+}
+
 //entry point
 $(document).ready(function () {
     //events
@@ -662,9 +669,7 @@ $(document).ready(function () {
     $("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
 
     $(window).resize(function () {
-        placePlace(0, $(".gold"));
-        placePlace(1, $(".silver"));
-        placePlace(2, $(".bronze"));
+		placePlaces();
     });
 
     $("#mask").on("click", function (e) {
@@ -676,7 +681,7 @@ $(document).ready(function () {
             microViewModel.clearWindow();
         }
     });
-
+		
     //google spreadsheet init
     Tabletop.init({
         key: public_spreadsheet_url,
