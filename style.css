@@ -286,7 +286,6 @@ li {
 }
 
 .gold {
-  //  top: 168px;
     background: #f1da36;
     background: -moz-linear-gradient(left, #f1da36 0%, #fefefe 100%); 
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f1da36), color-stop(100%,#fefefe)); 
@@ -298,7 +297,6 @@ li {
 }
 
 .silver {
-  //  top: 211px;
     background: #b2b2b2; 
     background: -moz-linear-gradient(left, #b2b2b2 0%, #fefefe 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#b2b2b2), color-stop(100%,#fefefe)); 
@@ -310,7 +308,6 @@ li {
 }
 
 .bronze {
-   // top: 254px;
     background: #bfa072;
     background: -moz-linear-gradient(left, #bfa072 0%, #fefefe 100%); 
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfa072), color-stop(100%,#fefefe)); 
