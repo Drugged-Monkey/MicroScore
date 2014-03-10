@@ -317,3 +317,12 @@ li {
     background: linear-gradient(to right, #bfa072 0%,#fefefe 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfa072', endColorstr='#e9d4b3',GradientType=1 );
 }
+
+.dot {
+    width: 10px;
+    height: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-left: 13px;
+}

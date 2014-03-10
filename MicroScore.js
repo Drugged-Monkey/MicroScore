@@ -1,9 +1,10 @@
 ﻿// objects and data
 
-var r1 = "<a href='https://twitter.com/baoyu42'>Юра Разумов</a>"
-var r2 = "<a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a>"
+var r1 = "<a href='https://twitter.com/baoyu42'>Юра Разумов</a>";
+var r2 = "<a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a>";
 var teams = [];
 var tours = [];
+var allLeads = [];
 var tourCount = 0;
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html';
 
@@ -49,6 +50,7 @@ function Team(teamId, teamName) {
     this.draws = 0;
     this.loses = 0;
     this.points = 0;
+    this.wasLead = false;
     this.totalAnsweredQuestions = 0;
     this.totalMaxQuestions = 0;
     this.percents = 0;
@@ -105,7 +107,7 @@ function MicroViewModel() {
         self.guestScore(0);
         self.isWindowVisible(false);
         self.isMaskVisible(false);
-    }
+    };
 }
 
 // common functions
@@ -273,7 +275,7 @@ function cellClick(cell) {
                     isTeamB = false;
                     isGuestB = false;
                     teamScore = 0;
-                    guestScore = 0
+                    guestScore = 0;
                     microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А(Б)"));
                 }
             });
@@ -297,6 +299,16 @@ function cellClick(cell) {
             $(cell).html(teamPlace);
         }
     }
+}
+
+function checkLead(team) {
+    var flag = false;
+    $.each(allLeads, function (j, lead) {
+        if (lead == team.teamName) {
+            flag = true;
+        }
+    });
+    return flag;
 }
 
 function cellHover() {
@@ -479,6 +491,11 @@ function tableTopCallback(data) {
         }));
 
         tours.push(new CommonTour((i + 1), leads, tourA, tourB));
+        $.each(leads, function (k, lead) {
+            if (lead.length > 0) {
+                allLeads.push(lead);
+            }
+        });
     }
 
     //calculations
@@ -520,6 +537,7 @@ function tableTopCallback(data) {
 
     //calculate mathches
     $.each(teams, function (i, team) {
+        team.wasLead = checkLead(team);
         $.each(teams, function (j, guest) {
             var cell = {
                 value: "",
@@ -624,20 +642,23 @@ function tableTopCallback(data) {
     $(".footer").show();
     $(".header").show();
     $(".placeBackground").show();
-	placePlaces();
+    placePlaces();
 }
 
 function getOffsetRect(elem) {
-    var box = elem.getBoundingClientRect()
-    var body = document.body
-    var docElem = document.documentElement
-    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop
-    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft
-    var clientTop = docElem.clientTop || body.clientTop || 0
-    var clientLeft = docElem.clientLeft || body.clientLeft || 0
-    var top = box.top + scrollTop - clientTop
-    var left = box.left + scrollLeft - clientLeft
-    return { top: Math.round(top), left: Math.round(left) }
+    var box = elem.getBoundingClientRect();
+    var body = document.body;
+    var docElem = document.documentElement;
+    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+    var clientTop = docElem.clientTop || body.clientTop || 0;
+    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+    var top = box.top + scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
+    return {
+        top: Math.round(top),
+        left: Math.round(left)
+    }
 }
 
 function placePlace(index, elem) {
@@ -646,10 +667,10 @@ function placePlace(index, elem) {
     elem.css("left", position.left);
 }
 
-function placePlaces(){
-	    placePlace(0, $(".gold"));
-        placePlace(1, $(".silver"));
-        placePlace(2, $(".bronze"));
+function placePlaces() {
+    placePlace(0, $(".gold"));
+    placePlace(1, $(".silver"));
+    placePlace(2, $(".bronze"));
 }
 
 //entry point
@@ -669,7 +690,7 @@ $(document).ready(function () {
     $("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
 
     $(window).resize(function () {
-		placePlaces();
+        placePlaces();
     });
 
     $("#mask").on("click", function (e) {
@@ -681,7 +702,7 @@ $(document).ready(function () {
             microViewModel.clearWindow();
         }
     });
-		
+
     //google spreadsheet init
     Tabletop.init({
         key: public_spreadsheet_url,

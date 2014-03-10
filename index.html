@@ -74,6 +74,7 @@
                 <th title='Ничьи'>Н</th>
                 <th title='Поражения'>П</th>
                 <th title='Очки'>О</th>
+                <th title='Команда вела тур'>Вл</th>
                 <th title='Взятые'>Вз</th>
                 <th title='Максимум по турам в которых играла команда'>М</th>
                 <th title='Процент'>%</th>
@@ -87,6 +88,9 @@
                 <td data-bind="text: draws"></td>
                 <td data-bind="text: loses"></td>
                 <td data-bind="text: points"></td>
+                <td>
+                    <div data-bind="style: { background: wasLead ? 'lightgreen' : '#FF8880' }" class="dot"></div>
+                </td>
                 <td data-bind="text: totalAnsweredQuestions"></td>
                 <td data-bind="text: totalMaxQuestions"></td>
                 <td data-bind="text: percents"></td>
