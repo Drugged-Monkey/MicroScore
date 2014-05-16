@@ -6,7 +6,9 @@ var teams = [];
 var tours = [];
 var allLeads = [];
 var tourCount = 0;
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html';
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html'; //prod
+//var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dFM1TDdVdnZTSjJSZkI5WTN0b0lUNnc&output=html'; //staging
+
 
 function ToursMatch(teamScore, guestScore) {
     this.teamScore = teamScore;
@@ -169,7 +171,7 @@ function cellClick(cell) {
                         } else if (teamScore < guestScore) {
                             microViewModel.guestScore(microViewModel.guestScore() + 1);
                         }
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-Б"));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-Б" : "Финал"));
                     }
 
                     if (teamAResult != undefined && guestAResult != undefined) { //обе играли лигу А
@@ -185,7 +187,7 @@ function cellClick(cell) {
                         } else if (teamScore < guestScore) {
                             microViewModel.guestScore(microViewModel.guestScore() + 1);
                         }
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А"));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А" : "Финал"));
                     }
 
                     if (teamAResult != undefined && teamBResult == undefined
@@ -198,7 +200,7 @@ function cellClick(cell) {
                         guestScore = 0;
 
                         microViewModel.teamScore(microViewModel.teamScore() + 1);
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А"));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А" : "Финал"));
                     }
 
                     if (teamAResult == undefined && teamBResult != undefined
@@ -211,7 +213,7 @@ function cellClick(cell) {
                         guestScore = guestAResult.score;
 
                         microViewModel.guestScore(microViewModel.guestScore() + 1);
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А"));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А" : "Финал"));
                     }
 
                     if ((teamAResult != undefined || teamBResult != undefined)
@@ -224,7 +226,7 @@ function cellClick(cell) {
                         guestScore = 0;
 
                         microViewModel.teamScore(microViewModel.teamScore() + 1);
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isTeamB ? "Б" : "А")));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + (isTeamB ? "-Б" : "-А") : "Финал"));
                     }
 
                     if (teamAResult == undefined && teamBResult == undefined
@@ -237,7 +239,7 @@ function cellClick(cell) {
                         guestScore = guestAResult != undefined ? guestAResult.score : guestBResult.score;
 
                         microViewModel.guestScore(microViewModel.guestScore() + 1);
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isGuestB ? "Б" : "А")));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + (isGuestB ? "-Б" : "-А") : "Финал"));
                     }
 
                     if (teamAResult == undefined && guestAResult == undefined
@@ -248,7 +250,7 @@ function cellClick(cell) {
                         isGuestB = null;
                         teamScore = 0;
                         guestScore = 0;
-                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А(Б)"));
+                        microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А(Б)" : "Финал"));
                     }
                 }
                 else if ($.inArray(teamName, tour.leads) > -1 && $.inArray(guestName, tour.leads) == -1) { //team is tour lead
@@ -258,7 +260,7 @@ function cellClick(cell) {
                     isGuestB = guestAResult == undefined;
                     teamScore = 0;
                     guestScore = guestAResult != undefined ? guestAResult.score : (guestBResult != undefined ? guestBResult.score : 0);
-                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isGuestB ? "Б" : "А")));
+                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ?  k + (isGuestB ? "-Б" : "-А") : "Финал"));
                 }
                 else if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) > -1) { //guest is tour lead
                     isTeamLead = false;
@@ -267,7 +269,7 @@ function cellClick(cell) {
                     isGuestB = false;
                     teamScore = teamAResult != undefined ? teamAResult.score : (teamBResult != undefined ? teamBResult.score : 0);
                     guestScore = 0;
-                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-" + (isTeamB ? "Б" : "А")));
+                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + (isTeamB ? "-Б" : "-А") : "Финал"));
                 }
                 else { //both is tour leads
                     isTeamLead = true;
@@ -276,7 +278,7 @@ function cellClick(cell) {
                     isGuestB = false;
                     teamScore = 0;
                     guestScore = 0;
-                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k + "-А(Б)"));
+                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А(Б)" : "Финал"));
                 }
             });
         }
@@ -464,15 +466,18 @@ function tableTopCallback(data) {
 
     toursCount = acount + bcount;
 
-    if (bcount > acount) {
-        microViewModel.lastTour("Б " + bcount);
-        microViewModel.lastTourType = data[bcount + "-B"].elements[0].state;
-    }
-    else if (bcount == acount) {
-        microViewModel.lastTour("A " + bcount);
+    if (bcount < 7 && acount < 7) {
+        if (bcount > acount) {
+            microViewModel.lastTour("Б " + bcount);
+            microViewModel.lastTourType = data[bcount + "-B"].elements[0].state;
+        } else if (bcount == acount) {
+            microViewModel.lastTour("A " + bcount);
+            microViewModel.lastTourType = data[bcount + "-A"].elements[0].state;
+        }
+    } else {
+        microViewModel.lastTour("Финал");
         microViewModel.lastTourType = data[bcount + "-A"].elements[0].state;
     }
-
     for (var i = 0; i < toursCount / 2; i++) {
         var leads = [];
 
