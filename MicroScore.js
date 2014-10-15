@@ -664,6 +664,11 @@ function tableTopCallback(data) {
                 var place = (first + last) / 2.0;
                 $.each(arr, function (i, item) {
                     teams[item.index].place = place;
+                    //if (i == 0) {
+                    //    teams[item.index].place = place;
+                    //} else {
+                    //    teams[item.index].place = "—";
+                    //}
                 });
             } else {
                 teams[arr[0].index].place = arr[0].index + 1;
