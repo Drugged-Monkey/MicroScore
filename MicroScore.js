@@ -6,7 +6,8 @@ var teams = [];
 var tours = [];
 var allLeads = [];
 var tourCount = 0;
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html'; //prod
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1M2J8TILI8Qb8c5TjEBv0k065tOXZrtM0O36zMujysgc/pubhtml'; //prod 2014-2015
+//var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html'; //prod 2013-2014
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dFM1TDdVdnZTSjJSZkI5WTN0b0lUNnc&output=html'; //staging
 
 
@@ -715,4 +716,3 @@ $(document).ready(function () {
         simpleSheet: false
     })
 });
-
