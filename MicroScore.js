@@ -663,7 +663,7 @@ function tableTopCallback(data) {
                 var last = arr[arr.length - 1].index + 1;
                 var place = (first + last) / 2.0;
                 $.each(arr, function (i, item) {
-                    teams[item.index].place = place;
+                    teams[item.index].place = place + " ("+ first + " - " + last +")";
                     //if (i == 0) {
                     //    teams[item.index].place = place;
                     //} else {
@@ -686,7 +686,7 @@ function tableTopCallback(data) {
     $(".footer").show();
     $(".header").show();
     $(".placeBackground").show();
-    placePlaces();
+    //placePlaces();
 }
 
 function getOffsetRect(elem) {

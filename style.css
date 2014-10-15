@@ -327,3 +327,7 @@ li {
     margin-left: 13px;
     background: gray;
 }
+
+.not-important {
+    color: #999999; 
+}
