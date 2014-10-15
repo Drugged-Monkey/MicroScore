@@ -57,6 +57,7 @@ function Team(teamId, teamName) {
     this.totalAnsweredQuestions = 0;
     this.totalMaxQuestions = 0;
     this.percents = 0;
+    this.place = 0;
 }
 
 // ko view model
@@ -261,7 +262,7 @@ function cellClick(cell) {
                     isGuestB = guestAResult == undefined;
                     teamScore = 0;
                     guestScore = guestAResult != undefined ? guestAResult.score : (guestBResult != undefined ? guestBResult.score : 0);
-                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ?  k + (isGuestB ? "-Б" : "-А") : "Финал"));
+                    microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + (isGuestB ? "-Б" : "-А") : "Финал"));
                 }
                 else if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) > -1) { //guest is tour lead
                     isTeamLead = false;
@@ -621,11 +622,27 @@ function tableTopCallback(data) {
             }
     }
 
+
+
     var $mainTable = $('#mainTable');
     var $headTrs = $mainTable.find('thead tr');
     var $bodyTrs = $mainTable.find('tbody tr');
 
+    var neigbors = {};
+
     $.each(teams, function (i, team) {
+
+        if (neigbors[team.points] == undefined) {
+            neigbors[team.points] = {};
+        }
+        if (neigbors[team.points][team.percents] == undefined) {
+            neigbors[team.points][team.percents] = [];
+        }
+        neigbors[team.points][team.percents].push({
+            index: i,
+            team: team
+        })
+
         var $th = $('<th>');
         $th.addClass('clickable');
         $th.data('teamplace', i + 1);
@@ -637,6 +654,22 @@ function tableTopCallback(data) {
         $td.addClass('clickable');
         $bodyTrs.append($td);
     });
+
+    for (var points in neigbors) {
+        for (var percents in neigbors[points]) {
+            var arr = neigbors[points][percents];
+            if (arr.length > 1) {
+                var first = arr[0].index + 1;
+                var last = arr[arr.length - 1].index + 1;
+                var place = (first + last) / 2.0;
+                $.each(arr, function (i, item) {
+                    teams[item.index].place = place;
+                });
+            } else {
+                teams[arr[0].index].place = arr[0].index + 1;
+            }
+        }
+    }
 
     ko.applyBindings(microViewModel);
     $(".derby")

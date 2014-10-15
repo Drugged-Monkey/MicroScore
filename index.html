@@ -67,7 +67,8 @@
     <table id="mainTable">
         <thead>
             <tr>
-                <th>Место</th>
+                <th title='Порядковый номер строки'>№</th>
+                <th title ='Среднее между первым и последним № у команд с равными показателями'>Место</th>
                 <th>Название</th>
                 <th title='Выигрыши'>В</th>
                 <th title='Ничьи'>Н</th>
@@ -82,6 +83,7 @@
         <tbody data-bind="foreach: teams">
             <tr>
                 <td data-bind="text: $index() + 1"></td>
+                <td data-bind="text: place"></td>
                 <td data-bind="text: teamName"></td>
                 <td data-bind="text: wins"></td>
                 <td data-bind="text: draws"></td>
