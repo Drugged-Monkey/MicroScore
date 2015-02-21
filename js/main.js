@@ -6,7 +6,6 @@ require.config({
         knockout: 'lib/knockout/knockout',
         tabletop: 'lib/tabletop/tabletop'
     }
-
 });
 
 require([

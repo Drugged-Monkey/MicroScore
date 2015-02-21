@@ -2,8 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'app/views/page-view',
-  'app/models/page-model'
+  'app/page/views/page-view',
+  'app/page/models/page-model'
 ], function ($, _, Backbone, PageView, PageModel) {
     var self;
     var AppRouter = Backbone.Router.extend({
@@ -15,8 +15,9 @@ define([
             '*actions': 'defaultAction'
         },
 
-        initialize: function () {
+        initialize: function (options) {
             self = this;
+            self.options = options;
             _.bindAll(self,
                 "start",
                 "showPage",
@@ -28,6 +29,7 @@ define([
         },
 
         showPage: function (year, tour) {
+            self.options.mainView.renderTours(year);
             if (!!!tour) {
                 self.navigate("!/year/" + year + "/tour/" + 1, { trigger: true });
             } else {
@@ -47,8 +49,8 @@ define([
 
     });
 
-    var initialize = function () {
-        var router = new AppRouter();
+    var initialize = function (options) {
+        var router = new AppRouter(options);
         Backbone.history.start();
         return router;
     };

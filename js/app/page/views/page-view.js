@@ -1,12 +1,12 @@
 define([
     'underscore',
     'backbone',
-    //'text!templates/page-template.html'
-], function (_, Backbone){//, template) {
+  //  'text!app/page/templates/page-template.html'
+], function (_, Backbone) {// , template) {
     var self;
     var PageView = Backbone.View.extend({
-        el: '#content',
-        //template: _.template(template, {}),
+        el: '#page-wrapper',
+   //     template: _.template(template, {}),
         template: _.template($("#page-template").html(), {}),
         initialize: function () {
             self = this;

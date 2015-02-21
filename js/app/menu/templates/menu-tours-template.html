@@ -1,0 +1,5 @@
+<div id="menu-tours-container">
+    <% _.each(attributes.year.tours, function(tour){ %>
+    <a href="#!/year/<%=attributes.year.name%>/tour/<%=tour.name%>"><%=tour.name%></a>
+    <% }); %>
+</div>
