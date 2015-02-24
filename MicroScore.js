@@ -323,11 +323,9 @@ function cellHover() {
         microViewModel.teamName(getNameById(teamId));
         microViewModel.guestName(getNameById(guestId));
         $("#floatingTitle").fadeIn("fast");
-        $(".congratulations").fadeOut("fast");
     }
     else {
         $("#floatingTitle").fadeOut("fast");
-        $(".congratulations").fadeIn("fast");
     }
 }
 
@@ -666,11 +664,6 @@ function tableTopCallback(data) {
                 var place = (first + last) / 2.0;
                 $.each(arr, function (i, item) {
                     teams[item.index].place = place + " ("+ first + " - " + last +")";
-                    //if (i == 0) {
-                    //    teams[item.index].place = place;
-                    //} else {
-                    //    teams[item.index].place = "—";
-                    //}
                 });
             } else {
                 teams[arr[0].index].place = arr[0].index + 1;
@@ -688,35 +681,6 @@ function tableTopCallback(data) {
     $(".footer").show();
     $(".header").show();
     $(".placeBackground").show();
-    //placePlaces();
-}
-
-function getOffsetRect(elem) {
-    var box = elem.getBoundingClientRect();
-    var body = document.body;
-    var docElem = document.documentElement;
-    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
-    var clientTop = docElem.clientTop || body.clientTop || 0;
-    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
-    var top = box.top + scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-    return {
-        top: Math.round(top),
-        left: Math.round(left)
-    }
-}
-
-function placePlace(index, elem) {
-    var position = getOffsetRect($("#mainTable tbody tr")[index]);
-    elem.css("top", position.top);
-    elem.css("left", position.left);
-}
-
-function placePlaces() {
-    placePlace(0, $(".gold"));
-    placePlace(1, $(".silver"));
-    placePlace(2, $(".bronze"));
 }
 
 //entry point
