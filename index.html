@@ -33,12 +33,12 @@
             </div>
         </div>
     </script>
-    
+
     <script type="text/html" id="menu-template">
         <div id="menu-container">
             <div id="menu">
                 <% _.each(attributes.years, function(year){ %>
-                    <a href="#!/year/<%=year.name%>">[<%=year.name%>]</a>
+                <a href="#!/year/<%=year.name%>">[<%=year.name%>]</a>
                 <% }); %>
                 <br />
                 <div id="menu-tours-wrapper">
@@ -47,7 +47,7 @@
             </div>
         </div>
     </script>
-    
+
     <script type="text/html" id="menu-tours-template">
         <div id="menu-tours-container">
             <% _.each(attributes.year.tours, function(tour){ %>
@@ -55,19 +55,61 @@
             <% }); %>
         </div>
     </script>
-    
+
     <script type="text/html" id="page-template">
         <div id="page-container">
             <b>Year:</b> <%=options.year%>
             <br />
             <b>Tour:</b> <%=options.tour%>
+            <div id="main-table-wrapper">
+
+            </div>
+        </div>
+    </script>
+
+    <script type="text/html" id="main-table-template">
+        <div id="main-table-container">
+            <table id="mainTable">
+                <thead>
+                    <tr>
+                        <th title='Порядковый номер строки'>№</th>
+                        <th title='Среднее между первым и последним № у команд с равными показателями'>Место</th>
+                        <th>Название</th>
+                        <th title='Выигрыши'>В</th>
+                        <th title='Ничьи'>Н</th>
+                        <th title='Поражения'>П</th>
+                        <th title='Очки'>О</th>
+                        <th title='Команда вела тур'>Вл</th>
+                        <th title='Взятые'>Вз</th>
+                        <th title='Максимум по турам в которых играла команда'>М</th>
+                        <th title='Процент'>%</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: teams">
+                    <tr>
+                        <td data-bind="text: $index() + 1" class="not-important"></td>
+                        <td data-bind="text: place"></td>
+                        <td data-bind="text: teamName"></td>
+                        <td data-bind="text: wins"></td>
+                        <td data-bind="text: draws"></td>
+                        <td data-bind="text: loses"></td>
+                        <td data-bind="text: points"></td>
+                        <td>
+                            <div data-bind="css: { dot: wasLead }" class="dot"></div>
+                        </td>
+                        <td data-bind="text: totalAnsweredQuestions"></td>
+                        <td data-bind="text: totalMaxQuestions"></td>
+                        <td data-bind="text: percents"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </script>
     <!--BACKBONE TEMPLATES-->
 </head>
 
 <body>
-    
+
 
 
     <!--<table class="header" style="float: left">

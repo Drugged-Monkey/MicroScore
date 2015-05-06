@@ -1,13 +1,13 @@
 define([
     'underscore',
     'backbone',
-  //  'text!app/page/templates/page-template.html'
+  //  'text!app/page/templates/main-table-template.html'
 ], function (_, Backbone) {// , template) {
     var self;
-    var PageView = Backbone.View.extend({
-        el: '#page-wrapper',
-   //     template: _.template(template, {}),
-        template: _.template($("#page-template").html(), {}),
+    var MainTableView = Backbone.View.extend({
+        el: '#main-table-wrapper',
+        //     template: _.template(template, {}),
+        template: _.template($("#main-table-template").html(), {}),
         initialize: function () {
             self = this;
             _.bindAll(self, "render");
@@ -19,10 +19,6 @@ define([
                 attributes: self.model.attributes,
                 options: self.model.options
             }));
-        },
-
-        renderMainTable: function() {
-            
         }
     });
 
