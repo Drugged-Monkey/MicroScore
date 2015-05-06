@@ -105,6 +105,42 @@
             </table>
         </div>
     </script>
+
+    <script type="text/html" id="micro-match-popup-template">
+        <div id="container" class="container" data-bind="visible: isWindowVisible" style="display: none">
+            <div id="top">
+                <div id="first">
+                    <span data-bind="text: teamName"></span>
+                </div>
+                <div id="score">
+                    <div data-bind="css: matchesStyle" class="scoreBack">
+                        <span data-bind="text: matchesScore"></span>
+                    </div>
+                </div>
+                <div id="second">
+                    <span data-bind="text: guestName"></span>
+                </div>
+            </div>
+            <div id="results">
+                <ul data-bind="foreach: matches">
+                    <li>
+                        <div class="tourLabel" data-bind="text: tourLabel + ':'">
+                        </div>
+                        <div class="left">
+                            <span data-bind="text: isTeamLead ? 'Вели тур' : (isTeamB == null ? '0 (Н)' : (!isTeamB ? teamScore : (isTeamB && (isGuestB || isGuestB == null) ? teamScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isTeamLead && !isGuestLead && (teamScore > guestScore) }"></span>
+                        </div>
+                        <div class="center">:</div>
+                        <div class="right">
+                            <span data-bind="text: isGuestLead ? 'Вели тур' : (isGuestB == null ? '0 (Н)' : (!isGuestB ? guestScore : ((isTeamB || isTeamB == null) && isGuestB ? guestScore + ' (Б)' : '0 (Б)'))), css: { boldText: !isGuestLead && !isTeamLead && (teamScore < guestScore) }"></span>
+                        </div>
+                    </li>
+                </ul>
+
+                <button title="Close (Esc)" type="button" class="mfp-close" data-bind="click: clearWindow">×</button>
+
+            </div>
+        </div>
+    </script>
     <!--BACKBONE TEMPLATES-->
 </head>
 
