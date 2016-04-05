@@ -55,8 +55,8 @@ function Team(teamId, teamName) {
     this.loses = 0;
     this.points = 0;
     this.wasLead = false;
-    this.totalAnsweredQuestions = 0;
-    this.totalMaxQuestions = 0;
+    //this.totalAnsweredQuestions = 0;
+    //this.totalMaxQuestions = 0;
     this.totalTours = 0;
     this.percents = 0;
     this.place = 0;
@@ -603,13 +603,13 @@ function tableTopCallback(data) {
                 team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.A.max;
-                team.totalAnsweredQuestions += teamAResult.score;
+                //team.totalAnsweredQuestions += teamAResult.score;
             }
             if (teamBResult != undefined) {
                 team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.B.max;
-                team.totalAnsweredQuestions += teamBResult.score;
+                //team.totalAnsweredQuestions += teamBResult.score;
             }
         });
         team.percents = Math.round(team.percents * 10 / team.totalTours++) / 10;
