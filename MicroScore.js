@@ -57,6 +57,7 @@ function Team(teamId, teamName) {
     this.wasLead = false;
     this.totalAnsweredQuestions = 0;
     this.totalMaxQuestions = 0;
+    this.totalTours = 0;
     this.percents = 0;
     this.place = 0;
 }
@@ -511,11 +512,11 @@ function tableTopCallback(data) {
     $.each(tours, function (i, tour) {
 
         tour.A.results.sort(function (a, b) { return b.score - a.score });
-        tour.A.max = tour.A.results[0].score;
+        tour.A.max = tour.A.results[0].score > 0 ? tour.A.results[0].score : 1;
 
         if (tour.B.results.length > 0) {
             tour.B.results.sort(function (a, b) { return b.score - a.score });
-            tour.B.max = tour.B.results[0].score;
+            tour.B.max = tour.B.results[0].score > 0 ? tour.B.results[0].score : 1;
         }
 
         $.each(tour.A.results, function (j, result) {
@@ -599,15 +600,19 @@ function tableTopCallback(data) {
                 }
             });
             if (teamAResult != undefined) {
-                team.totalMaxQuestions += tour.A.max;
+                team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
+                team.totalTours++;
+                // team.totalMaxQuestions += tour.A.max;
                 team.totalAnsweredQuestions += teamAResult.score;
             }
             if (teamBResult != undefined) {
-                team.totalMaxQuestions += tour.B.max;
+                team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
+                team.totalTours++;
+                // team.totalMaxQuestions += tour.B.max;
                 team.totalAnsweredQuestions += teamBResult.score;
             }
         });
-        team.percents = Math.round(team.totalAnsweredQuestions * 10000 / team.totalMaxQuestions) / 100;
+        team.percents = Math.round(team.percents * 10 / team.totalTours++) / 10;
     });
 
     switch (microViewModel.sortType()) {
