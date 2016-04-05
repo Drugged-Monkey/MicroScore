@@ -40,10 +40,11 @@ function CommonTour(tourId, leads, tourA, tourB) {
     this.B = tourB;
 }
 
-function Tour(tourId, tourType, results) {
+function Tour(tourId, tourType, results, state) {
     this.results = results;
     this.tourId = tourId;
     this.tourType = tourType;
+	this.state = state;
     this.max = 0;
 }
 
@@ -490,14 +491,14 @@ function tableTopCallback(data) {
                 leads.push(item.leads);
             }
             return new Result(item.name, parseInt(item.score));
-        }));
+        }), data[(i + 1) + "-B"].elements[0].state);
 
         var tourA = new Tour((i + 1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
             if (item.leads != null) {
                 leads.push(item.leads);
             }
             return new Result(item.name, parseInt(item.score));
-        }));
+        }), data[(i + 1) + "-A"].elements[0].state);
 
         tours.push(new CommonTour((i + 1), leads, tourA, tourB));
         $.each(leads, function (k, lead) {
@@ -599,13 +600,13 @@ function tableTopCallback(data) {
                     teamBResult = result;
                 }
             });
-            if (teamAResult != undefined) {
+            if (teamAResult != undefined && (tour.A.state == "Окончательные" || tour.A.state == "Предварительные")) {
                 team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.A.max;
                 //team.totalAnsweredQuestions += teamAResult.score;
             }
-            if (teamBResult != undefined) {
+            if (teamBResult != undefined && (tour.B.state == "Окончательные" || tour.B.state == "Предварительные")) {
                 team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.B.max;
