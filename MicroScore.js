@@ -513,11 +513,11 @@ function tableTopCallback(data) {
     $.each(tours, function (i, tour) {
 
         tour.A.results.sort(function (a, b) { return b.score - a.score });
-        tour.A.max = tour.A.results[0].score > 0 ? tour.A.results[0].score : 1;
+        tour.A.max = tour.A.results[0].score;
 
         if (tour.B.results.length > 0) {
             tour.B.results.sort(function (a, b) { return b.score - a.score });
-            tour.B.max = tour.B.results[0].score > 0 ? tour.B.results[0].score : 1;
+            tour.B.max = tour.B.results[0].score;
         }
 
         $.each(tour.A.results, function (j, result) {
@@ -600,13 +600,13 @@ function tableTopCallback(data) {
                     teamBResult = result;
                 }
             });
-            if (teamAResult != undefined && (tour.A.state == "Окончательные" || tour.A.state == "Предварительные")) {
+            if (teamAResult != undefined && tour.A.max > 0) {
                 team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.A.max;
                 //team.totalAnsweredQuestions += teamAResult.score;
             }
-            if (teamBResult != undefined && (tour.B.state == "Окончательные" || tour.B.state == "Предварительные")) {
+            if (teamBResult != undefined && tour.B.max > 0) {
                 team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
                 team.totalTours++;
                 // team.totalMaxQuestions += tour.B.max;
