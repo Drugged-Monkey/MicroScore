@@ -1,27 +1,17 @@
-﻿<?php
+﻿﻿<?php
 $hash = md5(filemtime('MicroScore.js'));
 ?><!DOCTYPE html>
 <html>
 <head>
-    <title>Микроматчи сезона 2014/15</title>
+    <title>Микроматчи сезона 2015/16</title>
     <meta http-equiv="Content-Language" content="ru">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!--<script>
-        (function (i, s, o, g, r, a, m) {
-           i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-           }, i[r].l = 1 * new Date(); a = s.createElement(o),
-           m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-       ga('create', 'UA-47538619-1', 'xpunited.by');
-        ga('send', 'pageview');
-    </script> -->
     <script src="http://code.jquery.com/jquery-2.0.2.min.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js" type="text/javascript"></script>
     <script src="tabletop.js" type="text/javascript"></script>
-    <script src="MicroScore.js?hash=<?php echo $hash; ?>" type="text/javascript"></script>
+    <script src="MicroScore.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -101,14 +91,14 @@ $hash = md5(filemtime('MicroScore.js'));
                 </td>-->
 				<!--<<td data-bind="text: totalAnsweredQuestions"></td>-->
                 <!--<td data-bind="text: totalMaxQuestions"></td>-->
-                <td data-bind="text: percents"></td>
+                <td class="percents clickable" data-bind="text: percents, attr: {'data-teamid': teamId}"></td>
             </tr>
         </tbody>
     </table>
 
     <div id="mask" class="mask" data-bind="visible: isMaskVisible" style="display: block"></div>
     <div id="spinnerMask" class="mask spinner" data-bind="visible: !isUiVisible"></div>
-    <div id="container" class="container" data-bind="visible: isWindowVisible" style="display: none">
+    <div class="container" data-bind="visible: isMatchesWindowVisible" style="display: none">
         <div id="top">
             <div id="first">
                 <span data-bind="text: teamName"></span>
@@ -136,11 +126,46 @@ $hash = md5(filemtime('MicroScore.js'));
                     </div>
                 </li>
             </ul>
-
             <button title="Close (Esc)" type="button" class="mfp-close" data-bind="click: clearWindow">×</button>
-
         </div>
     </div>
+	
+	<div class="container" data-bind="visible: isPercentsWindowVisible" style="display: none">
+		<div id="top">
+            <div id="first">
+                <span data-bind="text: teamName"></span>
+            </div>
+        </div>
+		 <div id="results">
+            <ul data-bind="foreach: teamPercents">
+                <li>
+                    <div class="tourLabel" data-bind="text: tourLabel + ':'">
+                    </div>
+                    <div class="left">
+                        <span data-bind="text: score"></span>
+                    </div>
+                    <div class="center">/</div>
+                    <div class="right">
+						<span data-bind="text: max + ' = ' + tourPercent + '%'"></span>
+					</div>
+                </li>
+            </ul>
+			<ul>
+				<li>                     
+					<div class="tourLabel" data-bind="text: 'Итог:'">
+                    </div>
+                    <div class="left">
+                        <span data-bind="text: teamPercentsTotal() + '%'"></span>
+                    </div>
+                    <div class="center">/</div>
+                    <div class="right">
+						<span data-bind="text: teamPercents().length + ' = ' + (Math.round(teamPercentsTotal() * 10 / teamPercents().length) / 10) + '%'"></span>
+					</div>
+				</li>
+			</ul>
+            <button title="Close (Esc)" type="button" class="mfp-close" data-bind="click: clearWindow">×</button>
+        </div>
+	</div>
 
     <!--<div class="placeBackground gold"> </div>
     <div class="placeBackground silver"> </div>
