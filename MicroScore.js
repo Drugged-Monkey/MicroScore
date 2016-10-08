@@ -56,11 +56,16 @@ function Team(teamId, teamName) {
     this.loses = 0;
     this.points = 0;
     this.wasLead = false;
-    //this.totalAnsweredQuestions = 0;
-    //this.totalMaxQuestions = 0;
     this.totalTours = 0;
     this.percents = 0;
     this.place = 0;
+}
+
+function TeamPercent (tourLabel, tourScore, tourMax) {
+	this.tourLabel = tourLabel;
+	this.score = tourScore;
+	this.max = tourMax;
+	this.tourPercent = Math.round(tourScore * 1000 / tourMax) / 10;
 }
 
 // ko view model
@@ -70,7 +75,8 @@ function MicroViewModel() {
     var self = this;
 
     // observables
-    self.isWindowVisible = ko.observable(false);
+    self.isMatchesWindowVisible = ko.observable(false);
+	self.isPercentsWindowVisible = ko.observable(false);
     self.isMaskVisible = ko.observable(false);
     self.isUiVisible = ko.observable(false);
 
@@ -81,13 +87,22 @@ function MicroViewModel() {
     self.guestName = ko.observable("");
     self.teamScore = ko.observable(0);
     self.guestScore = ko.observable(0);
-
+	
     self.rand = ko.observable(getRandomInt(1, 2));
     self.sortType = ko.observable(1);	 // TODO: replace this ugly sorting switch (1 for score-based, 2 for alphabetical)
 
     self.lastTour = ko.observable(" - ");
     self.lastTourType = ko.observable(" - ");
 
+	self.teamPercents = ko.observableArray([]);
+	self.teamPercentsTotal = ko.computed(function () {
+		var total = 0;
+		$.each(self.teamPercents(), function (i, item) {
+			total += item.tourPercent;		
+		});
+		return total.toFixed(1);
+	});
+	
     //computed
     self.matchesScore = ko.computed(function () {
         return self.teamScore() + " : " + self.guestScore();
@@ -105,14 +120,16 @@ function MicroViewModel() {
         return self.rand() == 1 ? r2 : r1;
     }, this);
 
-    // methods
     self.clearWindow = function () {
         self.matches([]);
         self.teamName("");
         self.guestName("");
         self.teamScore(0);
         self.guestScore(0);
-        self.isWindowVisible(false);
+		self.teamPercents([]);
+		
+        self.isMatchesWindowVisible(false);
+		self.isPercentsWindowVisible(false);
         self.isMaskVisible(false);
     };
 }
@@ -125,7 +142,6 @@ function cellClick(cell) {
     var teamPlace = $(cell).data("teamplace");
     var teamName = $(cell).data("teamname");
     var cellVal = $(cell).data("val");
-    var derbyFlag = $(cell).hasClass("derby");
 
     if (teamId && guestId && teamId != guestId) {
         var teamName = getNameById(teamId);
@@ -162,8 +178,8 @@ function cellClick(cell) {
                     }
                 });
 
-                if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //нахер английский т.е. обе вели тур
-                    if (teamBResult != undefined && guestBResult != undefined) { //обе играли лигу Б
+                if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //both teams was leads
+                    if (teamBResult != undefined && guestBResult != undefined) { //both is in B
                         isTeamLead = false;
                         isGuestLead = false;
                         isTeamB = true;
@@ -179,7 +195,7 @@ function cellClick(cell) {
                         microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-Б" : "Финал"));
                     }
 
-                    if (teamAResult != undefined && guestAResult != undefined) { //обе играли лигу А
+                    if (teamAResult != undefined && guestAResult != undefined) { //both is in A
                         isTeamLead = false;
                         isGuestLead = false;
                         isTeamB = false;
@@ -287,18 +303,18 @@ function cellClick(cell) {
                 }
             });
         }
-        microViewModel.isWindowVisible(true);
+        microViewModel.isMatchesWindowVisible(true);
         microViewModel.isMaskVisible(true);
-        if (derbyFlag) {
-            $('#results')
-            .addClass("derbyContainer");
-        }
-        else {
-            $('#results')
-            .removeClass("derbyContainer");
-        }
+
         resizeWindow();
-    } else if (teamPlace && teamName) {
+    }
+}
+
+function headerClick(cell) {
+    var teamPlace = $(cell).data("teamplace");
+    var teamName = $(cell).data("teamname");
+	
+	if (teamPlace && teamName) {
         if (parseInt($(cell).html()) > 0) {
             $(cell).html(teamName);
         }
@@ -306,6 +322,49 @@ function cellClick(cell) {
             $(cell).html(teamPlace);
         }
     }
+}
+
+function percentsClick(cell) {
+    var teamId = $(cell).data("teamid");
+
+	if(teamId != null) {
+		microViewModel.teamName(getNameById(teamId));
+		
+		$.each(tours, function (i, tour) {
+                var k = i + 1;
+                var teamAResult, teamBResult;
+				var tourAMax, tourBMax;
+				var label;
+                $.each(tour.A.results, function (j, result) {
+                    if (result.teamId == teamId) {
+                        teamAResult = result.score;
+						tourAMax = tour.A.max;
+                    }
+                });
+
+                $.each(tour.B.results, function (j, result) {
+                    if (result.teamId == teamId) {
+                        teamBResult = result.score;
+						tourBMax = tour.B.max;
+                    }
+                });
+				
+				if(teamBResult != null) {
+					label = k < 7 ? (tour.tourId + "-Б") : "Финал";
+					microViewModel.teamPercents.push(new TeamPercent(label, teamBResult, tourBMax));
+				}
+				
+				if(teamAResult != null) {
+					label = k < 7 ? (tour.tourId + "-A") : "Финал";
+					microViewModel.teamPercents.push(new TeamPercent(label, teamAResult, tourAMax));
+				}
+			});
+		
+		microViewModel.isPercentsWindowVisible(true);
+		microViewModel.isMaskVisible(true);
+		
+		resizeWindow();
+	}
 }
 
 function checkLead(team) {
@@ -436,16 +495,17 @@ function getIdByName(name) {
 function resizeWindow() {
     var winH = window.innerHeight;
     var winW = window.innerWidth;
-    $('#container').css('top', winH / 2 - $('#container').height() / 2);
-    $('#container').css('left', winW / 2 - $('#container').width() / 2);
+    $('.container').css('top', winH / 2 - $('.container').height() / 2);
+    $('.container').css('left', winW / 2 - $('.container').width() / 2);
     $('#mask').css('height', winH);
     $('#mask').css('width', winW);
 }
 
 function isTeamUniq(name) {
     var flag = true;
+	var lowerName = name.toLowerCase();
     $.each(teams, function (i, team) {
-        if (team.teamName == name) {
+        if (team.teamName.toLowerCase() == lowerName) {
             flag = false;
             return false;
         }
@@ -579,10 +639,6 @@ function tableTopCallback(data) {
             var tname = team.teamName.toLowerCase();
             var gname = guest.teamName.toLowerCase();
 
-            if ((tname.indexOf("ры ам") != -1 && gname.indexOf("ий ле") != -1) || (gname.indexOf("ры ам") != -1 && tname.indexOf("ий ле") != -1)) {
-                cell.style += " derby";
-            }
-
             team["team" + guest.teamId] = cell;
         });
 
@@ -603,14 +659,10 @@ function tableTopCallback(data) {
             if (teamAResult != undefined && tour.A.max > 0) {
                 team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
                 team.totalTours++;
-                // team.totalMaxQuestions += tour.A.max;
-                //team.totalAnsweredQuestions += teamAResult.score;
             }
             if (teamBResult != undefined && tour.B.max > 0) {
                 team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
                 team.totalTours++;
-                // team.totalMaxQuestions += tour.B.max;
-                //team.totalAnsweredQuestions += teamBResult.score;
             }
         });
         team.percents = Math.round(team.percents * 10 / team.totalTours++) / 10;
@@ -652,6 +704,7 @@ function tableTopCallback(data) {
 
         var $th = $('<th>');
         $th.addClass('clickable');
+		$th.addClass('headerPlace');
         $th.data('teamplace', i + 1);
         $th.data('teamname', team.teamName);
         $th.text(i + 1);
@@ -659,6 +712,7 @@ function tableTopCallback(data) {
 
         var $td = $("<td data-bind=\"text: team" + team.teamId + ".value, css : team" + team.teamId + ".style, attr: {'data-teamid': teamId, 'data-guestid': " + team.teamId + " }\"</td>");
         $td.addClass('clickable');
+		$td.addClass('cell');
         $bodyTrs.append($td);
     });
 
@@ -679,11 +733,7 @@ function tableTopCallback(data) {
     }
 
     ko.applyBindings(microViewModel);
-    $(".derby")
-        .css("border", '1px lightgray solid')
-        .css('background', 'url(flame.png) no-repeat')
-        .css('background-position', '12px 2px')
-        .css('background-size', '55%');
+
     $("#mainTable").show();
     $(".footer").show();
     $(".header").show();
@@ -699,16 +749,24 @@ $(document).ready(function () {
     $("#floatingTitle").hide();
     $(".placeBackground").hide();
 
-    $("#mainTable").on('click', function (args) {
+    $("#mainTable").on('click', '.cell', function (args) {
         cellClick(args.target);
     });
 
+	$("#mainTable").on('click', '.percents', function(args) {
+		percentsClick(args.target);
+	});
+	
+	$("#mainTable").on('click', '.headerPlace', function(args) {
+		headerClick(args.target);
+	});
+	
     $("#mainTable").delegate("td", "mouseover mousemove mouseenter", cellHover);
     $("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
 
-    $(window).resize(function () {
-        placePlaces();
-    });
+    //$(window).resize(function () {
+    //    placePlaces();
+    //});
 
     $("#mask").on("click", function (e) {
         microViewModel.clearWindow();
