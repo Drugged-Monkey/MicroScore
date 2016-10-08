@@ -6,7 +6,8 @@ var teams = [];
 var tours = [];
 var allLeads = [];
 var tourCount = 0;
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1hdAunhHHePMEdd0IqZXzN2e8IcQligaoV2YZUt71ehs/pubhtml'; //prod 2015-2016
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/14XNcqz9cTWRwXPy6myARyWL8g4qEBWkS4jz2S4vJu44/pubhtml'; //prod 2016-2017
+//var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1hdAunhHHePMEdd0IqZXzN2e8IcQligaoV2YZUt71ehs/pubhtml'; //prod 2015-2016
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1M2J8TILI8Qb8c5TjEBv0k065tOXZrtM0O36zMujysgc/pubhtml'; //prod 2014-2015
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html'; //prod 2013-2014
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dFM1TDdVdnZTSjJSZkI5WTN0b0lUNnc&output=html'; //staging
@@ -65,7 +66,7 @@ function TeamPercent (tourLabel, tourScore, tourMax) {
 	this.tourLabel = tourLabel;
 	this.score = tourScore;
 	this.max = tourMax;
-	this.tourPercent = Math.round(tourScore * 1000 / tourMax) / 10;
+	this.tourPercent = (Math.round(tourScore * 1000 / (tourMax > 0 ? tourMax : 1)) / 10);
 }
 
 // ko view model
@@ -100,7 +101,7 @@ function MicroViewModel() {
 		$.each(self.teamPercents(), function (i, item) {
 			total += item.tourPercent;		
 		});
-		return total.toFixed(1);
+		return total;
 	});
 	
     //computed
@@ -657,14 +658,15 @@ function tableTopCallback(data) {
                 }
             });
             if (teamAResult != undefined && tour.A.max > 0) {
-                team.percents += Math.round(teamAResult.score * 1000 / tour.A.max) / 10;
+                team.percents += Math.round(teamAResult.score * 1000 / (tour.A.max > 0 ? tour.A.max : 1)) / 10;
                 team.totalTours++;
             }
             if (teamBResult != undefined && tour.B.max > 0) {
-                team.percents += Math.round(teamBResult.score * 1000 / tour.B.max) / 10;
+                team.percents += Math.round(teamBResult.score * 1000 / (tour.B.max > 0 ? tour.B.max : 1)) / 10;
                 team.totalTours++;
             }
         });
+
         team.percents = Math.round(team.percents * 10 / team.totalTours++) / 10;
     });
 
