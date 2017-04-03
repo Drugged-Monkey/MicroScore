@@ -1,9 +1,10 @@
 ﻿﻿<?php
 $hash = md5(filemtime('MicroScore.js'));
 ?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Микроматчи сезона 2015/16</title>
+    <title>Микроматчи сезона 2016/17</title>
     <meta http-equiv="Content-Language" content="ru">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
@@ -159,7 +160,7 @@ $hash = md5(filemtime('MicroScore.js'));
                     </div>
                     <div class="center">/</div>
                     <div class="right">
-						<span data-bind="text: teamPercents().length + ' = ' + (Math.round(teamPercentsTotal() * 10 / teamPercents().length) / 10) + '%'"></span>
+						<span data-bind="text: teamPercents().length + ' = ' + teamPercentAverage() + '%'"></span>
 					</div>
 				</li>
 			</ul>
