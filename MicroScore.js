@@ -101,9 +101,12 @@ function MicroViewModel() {
 		$.each(self.teamPercents(), function (i, item) {
 			total += item.tourPercent;		
 		});
-		return total;
+		return total.toFixed(1);
 	});
-	
+	self.teamPercentAverage = ko.computed(function () {
+	    return (self.teamPercentsTotal() / self.teamPercents().length).toFixed(1)
+	});
+
     //computed
     self.matchesScore = ko.computed(function () {
         return self.teamScore() + " : " + self.guestScore();
