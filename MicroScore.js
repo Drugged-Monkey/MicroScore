@@ -146,6 +146,7 @@ function cellClick(cell) {
     var teamPlace = $(cell).data("teamplace");
     var teamName = $(cell).data("teamname");
     var cellVal = $(cell).data("val");
+    var derbyFlag = $(cell).hasClass("derby");
 
     if (teamId && guestId && teamId != guestId) {
         var teamName = getNameById(teamId);
@@ -309,6 +310,13 @@ function cellClick(cell) {
         }
         microViewModel.isMatchesWindowVisible(true);
         microViewModel.isMaskVisible(true);
+
+        if (derbyFlag) {
+            $('#results').addClass("derbyContainer");
+        }
+        else {
+            $('#results').removeClass("derbyContainer");
+        }
 
         resizeWindow();
     }
@@ -642,6 +650,10 @@ function tableTopCallback(data) {
             }
             var tname = team.teamName.toLowerCase();
             var gname = guest.teamName.toLowerCase();
+
+            if ((tname.indexOf("автостопом") != -1 && gname.indexOf("экспресс") != -1) || (gname.indexOf("автостопом") != -1 && tname.indexOf("экспресс") != -1)) {
+                cell.style += " derby";
+            }
 
             team["team" + guest.teamId] = cell;
         });

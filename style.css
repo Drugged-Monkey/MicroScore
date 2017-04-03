@@ -277,6 +277,12 @@ li {
     background-position: 230px 35px;
 }
 
+.derby {
+    background: url(flame.png);
+    background-repeat: no-repeat;
+    background-position: 8px 0px;
+}
+
 .placeBackground {
     min-width: 640px;
     min-height: 43px;
