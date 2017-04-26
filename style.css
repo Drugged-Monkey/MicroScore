@@ -189,6 +189,7 @@ li {
     top: 0px;
     height: 100%;
     width: 100%;
+    /*background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);*/
     background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.3);
     opacity: 0.99;
     z-index: 9999;
@@ -229,9 +230,9 @@ li {
     padding: 0;
 }
 
-.spinner {
+/*.spinner {
     background: url(spinner.gif) no-repeat center center rgba(0, 0, 0, 0.3);
-}
+}*/
 
 .scoreBack {
     margin: 5px;
@@ -291,39 +292,6 @@ li {
     z-index: -10;
 }
 
-.gold {
-    background: #f1da36;
-    background: -moz-linear-gradient(left, #f1da36 0%, #fefefe 100%); 
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f1da36), color-stop(100%,#fefefe)); 
-    background: -webkit-linear-gradient(left, #f1da36 0%,#fefefe 100%); 
-    background: -o-linear-gradient(left, #f1da36 0%,#fefefe 100%); 
-    background: -ms-linear-gradient(left, #f1da36 0%,#fefefe 100%); 
-    background: linear-gradient(to right, #f1da36 0%,#fefefe 100%); 
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#fefcea',GradientType=1 );
-}
-
-.silver {
-    background: #b2b2b2; 
-    background: -moz-linear-gradient(left, #b2b2b2 0%, #fefefe 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#b2b2b2), color-stop(100%,#fefefe)); 
-    background: -webkit-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); 
-    background: -o-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); 
-    background: -ms-linear-gradient(left, #b2b2b2 0%,#fefefe 100%); 
-    background: linear-gradient(to right, #b2b2b2 0%,#fefefe 100%); 
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2b2b2', endColorstr='#fefefe',GradientType=1 );
-}
-
-.bronze {
-    background: #bfa072;
-    background: -moz-linear-gradient(left, #bfa072 0%, #fefefe 100%); 
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfa072), color-stop(100%,#fefefe)); 
-    background: -webkit-linear-gradient(left, #bfa072 0%,#fefefe 100%); 
-    background: -o-linear-gradient(left, #bfa072 0%,#fefefe 100%); 
-    background: -ms-linear-gradient(left, #bfa072 0%,#fefefe 100%); 
-    background: linear-gradient(to right, #bfa072 0%,#fefefe 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfa072', endColorstr='#e9d4b3',GradientType=1 );
-}
-
 .dot {
     width: 10px;
     height: 10px;
@@ -337,3 +305,21 @@ li {
 .not-important {
     color: #999999; 
 }
+
+/* ANIMATION SPINNER */
+
+.spinner-container {width: 66px;height: 66px;background: none;left:48%; top:48%; position:absolute;}
+.spinner-square {width:20px; height:20px; margin:1px; -webkit-animation-name: blinking; -webkit-animation-duration: 0.84s; animation-name: blinking; animation-duration: 0.84s; animation-iteration-count: infinite; animation-timing-function: linear; float: left; background-color: #ccc; opacity: 0.2; }
+
+@-webkit-keyframes blinking {0% {opacity: 1;}50% {opacity: 0.2;}100% {opacity: 1;}}
+@keyframes blinking {0% {opacity: 1;}50% {opacity: 0.2;}100% {opacity: 1;}}
+
+.spinner-top-left {animation-delay: 0s;}
+.spinner-top-center {animation-delay: 0.805s;}
+.spinner-top-right {animation-delay: 0.690s;}
+.spinner-center-left {animation-delay: 0.115s;}
+.spinner-center-center {animation-delay: 0s;}
+.spinner-center-right {animation-delay: 0.690s;}
+.spinner-bottom-left {animation-delay: 0.230s;}
+.spinner-bottom-center {animation-delay: 0.345s;}
+.spinner-bottom-right {animation-delay: 0.460s;}

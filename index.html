@@ -95,7 +95,23 @@
     </table>
 
     <div id="mask" class="mask" data-bind="visible: isMaskVisible" style="display: block"></div>
-    <div id="spinnerMask" class="mask spinner" data-bind="visible: !isUiVisible"></div>
+
+    <div id="spinnerMask" class="mask" data-bind="visible: !isUiVisible">
+            <div class="spinner-container">
+                <div class="spinner-square spinner-top-left"></div>
+                <div class="spinner-square spinner-top-center"></div>
+                <div class="spinner-square spinner-top-right"></div>
+                <div style='clear:both'></div>
+                <div class="spinner-square spinner-center-left"></div>
+                <div class="spinner-square spinner-center-center"></div>
+                <div class="spinner-square spinner-center-right"></div>
+                <div style='clear:both'></div>
+                <div class="spinner-square spinner-bottom-left"></div>
+                <div class="spinner-square spinner-bottom-center"></div>
+                <div class="spinner-square spinner-bottom-right"></div>
+            </div>
+    </div>
+
     <div class="container" data-bind="visible: isMatchesWindowVisible" style="display: none">
         <div id="top">
             <div id="first">
