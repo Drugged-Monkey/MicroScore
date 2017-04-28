@@ -101,8 +101,11 @@ function MicroViewModel() {
 		$.each(self.teamPercents(), function (i, item) {
 			total += item.tourPercent;		
 		});
-		return total.toFixed(1);
+		return total;
 	});
+    self.teamPercentsTotalDisplay = ko.computed(function () {
+        return self.teamPercentsTotal().toFixed(1);
+    });
 	self.teamPercentAverage = ko.computed(function () {
 	    return (self.teamPercentsTotal() / self.teamPercents().length).toFixed(1)
 	});
@@ -643,8 +646,7 @@ function tableTopCallback(data) {
                     cell.style = "lose";
                 }
                 cell.value = match.teamScore + " : " + match.guestScore;
-            }
-            else {
+            }  else {
                 cell.value = " — ";
                 cell.style = "self";
             }
@@ -682,7 +684,7 @@ function tableTopCallback(data) {
             }
         });
 
-        team.percents = Math.round(team.percents * 10 / team.totalTours++) / 10;
+        team.percents = (team.percents / team.totalTours).toFixed(1);
     });
 
     switch (microViewModel.sortType()) {
@@ -759,7 +761,7 @@ function tableTopCallback(data) {
 
 //entry point
 $(document).ready(function () {
-    //events
+    
     $("#mainTable").hide();
     $(".footer").hide();
     $(".header").hide();
@@ -781,10 +783,6 @@ $(document).ready(function () {
     $("#mainTable").delegate("td", "mouseover mousemove mouseenter", cellHover);
     $("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
 
-    //$(window).resize(function () {
-    //    placePlaces();
-    //});
-
     $("#mask").on("click", function (e) {
         microViewModel.clearWindow();
     });
@@ -795,7 +793,6 @@ $(document).ready(function () {
         }
     });
 
-    //google spreadsheet init
     Tabletop.init({
         key: public_spreadsheet_url,
         callback: tableTopCallback,

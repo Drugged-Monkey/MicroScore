@@ -35,7 +35,7 @@ td {
         padding: 5px 0px 5px 2px;
     }
 
-    td:nth-child(7) {
+    td:nth-child(9) {
         border-right: 1px dotted #ccc;
         padding: 5px 9px 5px 4px;
     }
@@ -44,7 +44,7 @@ td {
         padding: 5px 6px 5px 9px;
     }
 
-    td:nth-child(3n+11) {
+    td:nth-child(3n+12) {
         border-right: 1px solid gray;
     }
 

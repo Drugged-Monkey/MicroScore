@@ -1,7 +1,6 @@
 ﻿﻿<?php
 $hash = md5(filemtime('MicroScore.js'));
 ?><!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <title>Микроматчи сезона 2016/17</title>
@@ -72,6 +71,7 @@ $hash = md5(filemtime('MicroScore.js'));
                 <th title='Ничьи'>Н</th>
                 <th title='Поражения'>П</th>
                 <th title='Очки'>О</th>
+                <th title='Игры'>И</th>
                 <!--<th title='Команда вела тур'>Вл</th>-->
                 <!--<<th title='Взятые'>Вз</th>-->
 				<!--<th title='Максимум по турам в которых играла команда'>М</th>-->
@@ -87,6 +87,7 @@ $hash = md5(filemtime('MicroScore.js'));
                 <td data-bind="text: draws"></td>
                 <td data-bind="text: loses"></td>
                 <td data-bind="text: points"></td>
+                <td data-bind="text: totalTours"></td>
                 <!--<td>
                     <div data-bind="css: { dot: wasLead }" class="dot"></div>
                 </td>-->
@@ -172,7 +173,7 @@ $hash = md5(filemtime('MicroScore.js'));
 					<div class="tourLabel" data-bind="text: 'Итог:'">
                     </div>
                     <div class="left">
-                        <span data-bind="text: teamPercentsTotal() + '%'"></span>
+                        <span data-bind="text: teamPercentsTotalDisplay() + '%'"></span>
                     </div>
                     <div class="center">/</div>
                     <div class="right">
