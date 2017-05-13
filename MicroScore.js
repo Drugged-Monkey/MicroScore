@@ -390,10 +390,10 @@ function cellHover() {
     if (teamId && guestId && teamId != guestId) {
         microViewModel.teamName(getNameById(teamId));
         microViewModel.guestName(getNameById(guestId));
-        $("#floatingTitle").fadeIn("fast");
+        $("#floatingTitle").show();
     }
     else {
-        $("#floatingTitle").fadeOut("fast");
+        $("#floatingTitle").hide();
     }
 }
 
