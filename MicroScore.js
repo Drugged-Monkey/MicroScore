@@ -561,14 +561,14 @@ function tableTopCallback(data) {
     for (var i = 0; i < toursCount / 2; i++) {
         var leads = [];
 
-        var tourB = new Tour((i + 1), "B", $.map(data[(i + 1) + "-B"].elements, function (item, i) {
+        var tourB = new Tour((i + 1), "B", data[(i + 1) + "-B"].elements.map(function (item) {
             if (item.leads != null) {
                 leads.push(item.leads);
             }
             return new Result(item.name, parseInt(item.score));
         }), data[(i + 1) + "-B"].elements[0].state);
 
-        var tourA = new Tour((i + 1), "A", $.map(data[(i + 1) + "-A"].elements, function (item, i) {
+        var tourA = new Tour((i + 1), "A", data[(i + 1) + "-A"].elements.map(function (item) {
             if (item.leads != null) {
                 leads.push(item.leads);
             }
