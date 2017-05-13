@@ -98,7 +98,7 @@ function MicroViewModel() {
 	self.teamPercents = ko.observableArray([]);
 	self.teamPercentsTotal = ko.computed(function () {
 		var total = 0;
-		$.each(self.teamPercents(), function (i, item) {
+		self.teamPercents().forEach(function (item, i) {
 			total += item.tourPercent;		
 		});
 		return total;
@@ -167,10 +167,10 @@ function cellClick(cell) {
             microViewModel.teamName(getNameById(teamId));
             microViewModel.guestName(getNameById(guestId));
 
-            $.each(tours, function (i, tour) {
+            tours.forEach(function (tour, i) {
                 var k = i + 1;
                 var teamAResult, teamBResult, guestAResult, guestBResult;
-                $.each(tour.A.results, function (j, result) {
+                tour.A.results.forEach(function (result, j) {
                     if (result.teamId == teamId) {
                         teamAResult = result;
                     } else if (result.teamId == guestId) {
@@ -178,7 +178,7 @@ function cellClick(cell) {
                     }
                 });
 
-                $.each(tour.B.results, function (j, result) {
+                tour.B.results.forEach(function (result, j) {
                     if (result.teamId == teamId) {
                         teamBResult = result;
                     } else if (result.teamId == guestId) {
@@ -186,7 +186,7 @@ function cellClick(cell) {
                     }
                 });
 
-                if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) == -1) { //both teams was leads
+                if (tour.leads.indexOf(teamName) == -1 && tour.leads.indexOf(guestName) == -1) { //both teams was leads
                     if (teamBResult != undefined && guestBResult != undefined) { //both is in B
                         isTeamLead = false;
                         isGuestLead = false;
@@ -282,7 +282,7 @@ function cellClick(cell) {
                         microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + "-А(Б)" : "Финал"));
                     }
                 }
-                else if ($.inArray(teamName, tour.leads) > -1 && $.inArray(guestName, tour.leads) == -1) { //team is tour lead
+                else if (tour.leads.indexOf(teamName) > -1 && tour.leads.indexOf(guestName) == -1) { //team is tour lead
                     isTeamLead = true;
                     isGuestLead = false;
                     isTeamB = false;
@@ -291,7 +291,7 @@ function cellClick(cell) {
                     guestScore = guestAResult != undefined ? guestAResult.score : (guestBResult != undefined ? guestBResult.score : 0);
                     microViewModel.matches.push(new TourMatch(teamScore, isTeamLead, isTeamB, guestScore, isGuestLead, isGuestB, k < 7 ? k + (isGuestB ? "-Б" : "-А") : "Финал"));
                 }
-                else if ($.inArray(teamName, tour.leads) == -1 && $.inArray(guestName, tour.leads) > -1) { //guest is tour lead
+                else if (tour.leads.indexOf(teamName) == -1 && tour.leads.indexOf(guestName) > -1) { //guest is tour lead
                     isTeamLead = false;
                     isGuestLead = true;
                     isTeamB = teamAResult == undefined;
@@ -345,19 +345,19 @@ function percentsClick(cell) {
 	if(teamId != null) {
 		microViewModel.teamName(getNameById(teamId));
 		
-		$.each(tours, function (i, tour) {
+		tours.forEach(function (tour, i) {
                 var k = i + 1;
                 var teamAResult, teamBResult;
 				var tourAMax, tourBMax;
 				var label;
-                $.each(tour.A.results, function (j, result) {
+                tour.A.results.forEach(function (result, j) {
                     if (result.teamId == teamId) {
                         teamAResult = result.score;
 						tourAMax = tour.A.max;
                     }
                 });
 
-                $.each(tour.B.results, function (j, result) {
+                tour.B.results.forEach(function (result, j) {
                     if (result.teamId == teamId) {
                         teamBResult = result.score;
 						tourBMax = tour.B.max;
@@ -384,7 +384,7 @@ function percentsClick(cell) {
 
 function checkLead(team) {
     var flag = false;
-    $.each(allLeads, function (j, lead) {
+    allLeads.forEach(function (lead, j) {
         if (lead == team.teamName) {
             flag = true;
         }
@@ -419,9 +419,9 @@ function compareResults(team, guest) {
     var teamScore = 0;
     var guestScore = 0;
 
-    $.each(tours, function (i, tour) {
+    tours.forEach(function (tour, i) {
         var teamAResult, teamBResult, guestAResult, guestBResult;
-        $.each(tour.A.results, function (j, result) {
+        tour.A.results.forEach(function (result, j) {
             if (result.teamId == team.teamId) {
                 teamAResult = result;
             } else if (result.teamId == guest.teamId) {
@@ -429,7 +429,7 @@ function compareResults(team, guest) {
             }
         });
 
-        $.each(tour.B.results, function (j, result) {
+        tour.B.results.forEach(function (result, j) {
             if (result.teamId == team.teamId) {
                 teamBResult = result;
             } else if (result.teamId == guest.teamId) {
@@ -437,7 +437,7 @@ function compareResults(team, guest) {
             }
         });
 
-        if ($.inArray(team.teamName, tour.leads) == -1 && $.inArray(guest.teamName, tour.leads) == -1) {
+        if (tour.leads.indexOf(team.teamName) == -1 && tour.leads.indexOf(guest.teamName) == -1) {
             if (teamAResult != undefined && guestAResult != undefined) { //обе играли лигу А
                 if (teamAResult.score > guestAResult.score) {
                     teamScore += 1;
@@ -487,7 +487,7 @@ function sortByAlphabet(a, b) {
 
 function getNameById(id) {
     var name = "";
-    $.each(teams, function (i, item) {
+    teams.forEach(function (item, i) {
         if (item.teamId == id) {
             name = item.teamName;
             return false;
@@ -498,7 +498,7 @@ function getNameById(id) {
 
 function getIdByName(name) {
     var id = 0;
-    $.each(teams, function (i, item) {
+    teams.forEach(function (item, i) {
         if (item.teamName == name) {
             id = item.teamId;
             return false;
@@ -519,7 +519,7 @@ function resizeWindow() {
 function isTeamUniq(name) {
     var flag = true;
 	var lowerName = name.toLowerCase();
-    $.each(teams, function (i, team) {
+    teams.forEach(function (team, i) {
         if (team.teamName.toLowerCase() == lowerName) {
             flag = false;
             return false;
@@ -535,7 +535,7 @@ function tableTopCallback(data) {
     var acount = 0;
     var bcount = 0;
 
-    $.each(Object.keys(data), function (i, item) {
+    Object.keys(data).forEach(function (item, i) {
         if (item.match(amatch) != null && item.match(amatch).length > 0) {
             acount++;
         }
@@ -576,7 +576,7 @@ function tableTopCallback(data) {
         }), data[(i + 1) + "-A"].elements[0].state);
 
         tours.push(new CommonTour((i + 1), leads, tourA, tourB));
-        $.each(leads, function (k, lead) {
+        leads.forEach(function (lead, k) {
             if (lead.length > 0) {
                 allLeads.push(lead);
             }
@@ -585,7 +585,7 @@ function tableTopCallback(data) {
 
     //calculations
     //fill teams array from tours array
-    $.each(tours, function (i, tour) {
+    tours.forEach(function (tour, i) {
 
         tour.A.results.sort(function (a, b) { return b.score - a.score });
         tour.A.max = tour.A.results[0].score;
@@ -595,7 +595,7 @@ function tableTopCallback(data) {
             tour.B.max = tour.B.results[0].score;
         }
 
-        $.each(tour.A.results, function (j, result) {
+        tour.A.results.forEach(function (result, j) {
             if (result.teamId == 0) {
                 if (isTeamUniq(result.teamName)) {
                     var index = teams.length + 1;
@@ -607,7 +607,7 @@ function tableTopCallback(data) {
             }
         });
 
-        $.each(tour.B.results, function (j, result) {
+        tour.B.results.forEach(function (result, j) {
             if (result.teamId == 0) {
                 if (isTeamUniq(result.teamName)) {
                     var index = teams.length + 1;
@@ -621,9 +621,9 @@ function tableTopCallback(data) {
     });
 
     //calculate mathches
-    $.each(teams, function (i, team) {
+    teams.forEach(function (team, i) {
         team.wasLead = checkLead(team);
-        $.each(teams, function (j, guest) {
+        teams.forEach(function (guest, j) {
             var cell = {
                 value: "",
                 style: ""
@@ -661,15 +661,15 @@ function tableTopCallback(data) {
         });
 
         //calculate percents and add table headers
-        $.each(tours, function (j, tour) {
+        tours.forEach(function (tour, j) {
             var teamAResult, teamBResult;
-            $.each(tour.A.results, function (j, result) {
+            tour.A.results.forEach(function (result, j) {
                 if (result.teamId == team.teamId) {
                     teamAResult = result;
                 }
             });
 
-            $.each(tour.B.results, function (j, result) {
+            tour.B.results.forEach(function (result, j) {
                 if (result.teamId == team.teamId) {
                     teamBResult = result;
                 }
@@ -708,7 +708,7 @@ function tableTopCallback(data) {
 
     var neigbors = {};
 
-    $.each(teams, function (i, team) {
+    teams.forEach(function(team, i) {
 
         if (neigbors[team.points] == undefined) {
             neigbors[team.points] = {};
@@ -742,7 +742,7 @@ function tableTopCallback(data) {
                 var first = arr[0].index + 1;
                 var last = arr[arr.length - 1].index + 1;
                 var place = (first + last) / 2.0;
-                $.each(arr, function (i, item) {
+                arr.forEach(function (item, i) {
                     teams[item.index].place = place + " ("+ first + " - " + last +")";
                 });
             } else {
