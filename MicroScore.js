@@ -1,7 +1,7 @@
 ﻿// objects and data
 
-var r1 = "<a href='https://twitter.com/baoyu42'>Юра Разумов</a>";
-var r2 = "<a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a>";
+var r1 = "";
+var r2 = "";
 var teams = [];
 var tours = [];
 var allLeads = [];
@@ -89,7 +89,6 @@ function MicroViewModel() {
     self.teamScore = ko.observable(0);
     self.guestScore = ko.observable(0);
 	
-    self.rand = ko.observable(getRandomInt(1, 2));
     self.sortType = ko.observable(1);	 // TODO: replace this ugly sorting switch (1 for score-based, 2 for alphabetical)
 
     self.lastTour = ko.observable(" - ");
@@ -117,14 +116,6 @@ function MicroViewModel() {
 
     self.matchesStyle = ko.computed(function () {
         return self.teamScore() > self.guestScore() ? 'win' : (self.teamScore() < self.guestScore() ? 'lose' : 'draw');
-    }, this);
-
-    self.firstPerson = ko.computed(function () {
-        return self.rand() == 1 ? r1 : r2;
-    }, this);
-
-    self.secondPerson = ko.computed(function () {
-        return self.rand() == 1 ? r2 : r1;
     }, this);
 
     self.clearWindow = function () {
@@ -408,10 +399,6 @@ function cellHover() {
 
 function headHover() {
     $("#floatingTitle").hide();
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function compareResults(team, guest) {
