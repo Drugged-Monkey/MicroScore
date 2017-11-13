@@ -6,7 +6,9 @@ var teams = [];
 var tours = [];
 var allLeads = [];
 var tourCount = 0;
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/14XNcqz9cTWRwXPy6myARyWL8g4qEBWkS4jz2S4vJu44/pubhtml'; //prod 2016-2017
+
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1HoHx349IzwCtDu1TZEIwe-lY2uXWCJz8QIYL36Ur3cM/edit'; //prod 2017-2018
+//var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/14XNcqz9cTWRwXPy6myARyWL8g4qEBWkS4jz2S4vJu44/pubhtml'; //prod 2016-2017
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1hdAunhHHePMEdd0IqZXzN2e8IcQligaoV2YZUt71ehs/pubhtml'; //prod 2015-2016
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1M2J8TILI8Qb8c5TjEBv0k065tOXZrtM0O36zMujysgc/pubhtml'; //prod 2014-2015
 //var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0ArS_x_k82ET4dExRTks4MHNHLXJwM09wYk9fRDdyYnc&output=html'; //prod 2013-2014
@@ -515,7 +517,7 @@ function isTeamUniq(name) {
     return flag;
 }
 
-function tableTopCallback(data) {
+function tableTopCallback(data, tabletop) {
     var amatch = /\d{1,1}-A/i;
     var bmatch = /\d{1,1}-B/i;
 
@@ -536,31 +538,31 @@ function tableTopCallback(data) {
     if (bcount < 7 && acount < 7) {
         if (bcount > acount) {
             microViewModel.lastTour("Б " + bcount);
-            microViewModel.lastTourType = data[bcount + "-B"].elements[0].state;
+            microViewModel.lastTourType = data[bcount + "-B"].elements[0].State;
         } else if (bcount == acount) {
             microViewModel.lastTour("A " + bcount);
-            microViewModel.lastTourType = data[bcount + "-A"].elements[0].state;
+            microViewModel.lastTourType = data[bcount + "-A"].elements[0].State;
         }
     } else {
         microViewModel.lastTour("Финал");
-        microViewModel.lastTourType = data[bcount + "-A"].elements[0].state;
+        microViewModel.lastTourType = data[bcount + "-A"].elements[0].State;
     }
     for (var i = 0; i < toursCount / 2; i++) {
         var leads = [];
 
         var tourB = new Tour((i + 1), "B", data[(i + 1) + "-B"].elements.map(function (item) {
-            if (item.leads != null) {
-                leads.push(item.leads);
+            if (item.Leads != null) {
+                leads.push(item.Leads);
             }
-            return new Result(item.name, parseInt(item.score));
-        }), data[(i + 1) + "-B"].elements[0].state);
+            return new Result(item.Name, parseInt(item.Score));
+        }), data[(i + 1) + "-B"].elements[0].State);
 
         var tourA = new Tour((i + 1), "A", data[(i + 1) + "-A"].elements.map(function (item) {
-            if (item.leads != null) {
-                leads.push(item.leads);
+            if (item.Leads != null) {
+                leads.push(item.Leads);
             }
-            return new Result(item.name, parseInt(item.score));
-        }), data[(i + 1) + "-A"].elements[0].state);
+            return new Result(item.Name, parseInt(item.Score));
+        }), data[(i + 1) + "-A"].elements[0].State);
 
         tours.push(new CommonTour((i + 1), leads, tourA, tourB));
         leads.forEach(function (lead, k) {
