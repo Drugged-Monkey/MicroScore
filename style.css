@@ -217,12 +217,19 @@ li {
 
 .footer {
     background: #eeeeee;
-    border: 2px solid gray;
     margin: 10px;
     padding: 5px;
     float: left;
-    width: 130px;
-    height: 25px;
+}
+
+.footer ul {
+	overflow-x:hidden;
+	white-space:nowrap; 
+}
+
+.footer ul li{
+	display: inline; 
+	padding-right: 15px;
 }
 
 .container ul {
@@ -240,7 +247,6 @@ li {
 
 .header {
     background: #eeeeee;
-    border: 2px solid gray;
     margin: 10px;
     float: left;
     width: 450px;

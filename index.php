@@ -3,7 +3,7 @@ $hash = md5(filemtime('MicroScore.js'));
 ?><!DOCTYPE html>
 <html>
 <head>
-    <title>Микроматчи сезона 2016/17</title>
+    <title>Микроматчи сезона 2017/18</title>
     <meta http-equiv="Content-Language" content="ru">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
@@ -15,7 +15,7 @@ $hash = md5(filemtime('MicroScore.js'));
 </head>
 
 <body>
-    <table class="header" style="float: left">
+    <table class="header" id="header" style="float: left">
         <tbody>
             <tr>
                 <td>
@@ -116,7 +116,7 @@ $hash = md5(filemtime('MicroScore.js'));
             </div>
     </div>
 
-    <div class="container" data-bind="visible: isMatchesWindowVisible" style="display: none">
+    <div class="container" id="matches-window-container" data-bind="visible: isMatchesWindowVisible" style="display: none">
         <div id="top">
             <div id="first">
                 <span data-bind="text: teamName"></span>
@@ -148,7 +148,7 @@ $hash = md5(filemtime('MicroScore.js'));
         </div>
     </div>
 	
-	<div class="container" data-bind="visible: isPercentsWindowVisible" style="display: none">
+	<div class="container" id="percents-window-container" data-bind="visible: isPercentsWindowVisible" style="display: none">
 		<div id="top">
             <div id="first">
                 <span data-bind="text: teamName"></span>
@@ -185,15 +185,19 @@ $hash = md5(filemtime('MicroScore.js'));
         </div>
 	</div>
 
-    <div class="footer"><b>Спасибо:</b></div>
-    <div class="footer"><a href="http://jquery.com/">jQuery</a></div>
-    <div class="footer"><a href="http://knockoutjs.com/">knockout.js</a></div>
-    <div class="footer"><a href="https://github.com/jsoma/tabletop">tabletop.js</a></div>
-    <div class="footer" data-bind="html: firstPerson"></div>
-    <div class="footer" data-bind="html: secondPerson"></div>
-    <div class="footer"><a href="https://twitter.com/kennel_panic">Женя Миротин</a></div>
-    <div class="footer"><a href="https://twitter.com/desert_mongoose">Лёша Гончаров</a></div>
-    <div class="footer">(c) 2013</div>
+	<div class="footer" id="footer">
+		<ul>
+			<li><b>Спасибо: </b></li>
+			<li ><a href="http://jquery.com/">jQuery</a></li>
+			<li ><a href="http://knockoutjs.com/">knockout.js</a></li>
+			<li ><a href="https://github.com/jsoma/tabletop">tabletop.js</a></li>
+			<li ><a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a></li>
+			<li ><a href='https://twitter.com/baoyu42'>Юра Разумов</a></li>
+			<li ><a href="https://twitter.com/kennel_panic">Женя Миротин</a></li>
+			<li ><a href="https://twitter.com/desert_mongoose">Лёша Гончаров</a></li>
+			<li><b>(c) 2013</b></li>
+		</ul>
+	</div>
 
 </body>
 </html>
