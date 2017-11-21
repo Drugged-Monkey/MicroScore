@@ -796,7 +796,7 @@
 			if(e.target) {
 				if(e.target.matches("td.cell")) {
 					cellHover(e.target);
-				} else if (e.target.matches("th.headerPlace")) {
+				} else if (e.target.matches("th.headerPlace") || e.target.matches("td.headcol")) {
 					headHover(e.target);
 				}
 			}

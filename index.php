@@ -92,7 +92,7 @@ $hash = md5(filemtime('MicroScore.js'));
                 </td>-->
 				<!--<<td data-bind="text: totalAnsweredQuestions"></td>-->
                 <!--<td data-bind="text: totalMaxQuestions"></td>-->
-                <td class="percents clickable" data-bind="text: percents, attr: {'data-teamid': teamId}"></td>
+                <td class="headcol percents clickable" data-bind="text: percents, attr: {'data-teamid': teamId}"></td>
             </tr>
         </tbody>
     </table>
