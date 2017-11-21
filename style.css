@@ -290,6 +290,7 @@ li {
     background-position: 8px 0px;
 }
 
+/*
 .placeBackground {
     min-width: 640px;
     min-height: 43px;
@@ -297,6 +298,7 @@ li {
     left: 10px;
     z-index: -10;
 }
+*/
 
 .dot {
     width: 10px;
