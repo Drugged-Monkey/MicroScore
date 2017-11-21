@@ -133,14 +133,14 @@
 
 	// common functions
 	function cellClick(cell) {
+		var teamId = cell.dataset.teamid;
+		var guestId = cell.dataset.guestid;
+		var teamPlace = cell.dataset.teamplace;
+		var teamName = cell.dataset.teamname;
+		var cellVal = cell.dataset.val;
 
-		var teamId = $(cell).data("teamid");
-		var guestId = $(cell).data("guestid");
-		var teamPlace = $(cell).data("teamplace");
-		var teamName = $(cell).data("teamname");
-		var cellVal = $(cell).data("val");
-		var derbyFlag = $(cell).hasClass("derby");
-
+		var derbyFlag = cell.classList.contains("derby");
+	
 		if (teamId && guestId && teamId != guestId) {
 			var teamName = getNameById(teamId);
 			var guestName = getNameById(guestId);
@@ -317,21 +317,23 @@
 	}
 
 	function headerClick(cell) {
-		var teamPlace = $(cell).data("teamplace");
-		var teamName = $(cell).data("teamname");
-		
+
+		var teamName = cell.dataset.teamname;
+		var teamPlace = cell.dataset.teamplace;
+				
 		if (teamPlace && teamName) {
-			if (parseInt($(cell).html()) > 0) {
-				$(cell).html(teamName);
+			if (parseInt(cell.innerHTML) > 0) {
+				cell.innerHTML = teamName;
 			}
 			else {
-				$(cell).html(teamPlace);
+				cell.innerHTML = teamPlace;
 			}
 		}
 	}
 
 	function percentsClick(cell) {
-		var teamId = $(cell).data("teamid");
+		
+		var teamId = cell.dataset.teamid;
 
 		if(teamId != null) {
 			microViewModel.teamName(getNameById(teamId));
@@ -383,27 +385,21 @@
 		return flag;
 	}
 
-	function cellHover() {
-		var teamId = $(this).data("teamid");
-		var guestId = $(this).data("guestid");
-		var floatingTitleEl = document.getElementById("floatingTitle");
-		if(floatingTitleEl) {
+	function cellHover(e) {
+		var teamId = e.dataset.teamid;
+		var guestId = e.dataset.guestid;
 			if (teamId && guestId && teamId != guestId) {
 				microViewModel.teamName(getNameById(teamId));
 				microViewModel.guestName(getNameById(guestId));
-				floatingTitleEl.style.display = "block";
+				document.el.floatingTitleEl.style.display = "block";
 			}
 			else {
-				floatingTitleEl.style.display = "none";
+				document.el.floatingTitleEl.style.display = "none";
 			}
-		}
 	}
 
 	function headHover() {
-		var floatingTitleEl = document.getElementById("floatingTitle");
-		if(floatingTitleEl) {
-			floatingTitleEl.style.display = "none";
-		}
+		document.el.floatingTitleEl.style.display = "none";
 	}
 
 	function compareResults(team, guest) {
@@ -767,51 +763,64 @@
 	function collectElements() {
 		var el = {};
 		
-		
 		el.mainTableEl = document.getElementById("mainTable");
 		el.mainTableHeadEl = el.mainTableEl.querySelectorAll("thead tr")[0];
 		el.mainTableBodyEl = el.mainTableEl.querySelectorAll("tbody tr")[0];
 		el.headerEl = document.getElementById("header");
 		el.footerEl = document.getElementById("footer");
 		el.floatingTitleEl = document.getElementById("floatingTitle");
+		el.maskEl = document.getElementById("mask");
 		
 		document.el = el;
 	}
 
-	//entry point
-	document.init = function() {
-		collectElements();
-		
+	function setupEvents() {
 		document.el.mainTableEl.style.display = "none";
 		document.el.footerEl.style.display = "none";
 		document.el.headerEl.style.display = "none";
 		document.el.floatingTitleEl.style.display = "none";
-
-		$("#mainTable").on('click', '.cell', function (args) {
-			cellClick(args.target);
-		});
-
-		$("#mainTable").on('click', '.percents', function(args) {
-			percentsClick(args.target);
+		
+		document.el.mainTableEl.addEventListener("click", function (e) {
+			if(e.target) {
+				if(e.target.matches("td.cell")) {
+					cellClick(e.target);
+				} else if (e.target.matches("td.percents")) {
+					percentsClick(e.target);
+				} else if (e.target.matches("th.headerPlace")) {
+					headerClick(e.target);
+				}
+			}
 		});
 		
-		$("#mainTable").on('click', '.headerPlace', function(args) {
-			headerClick(args.target);
-		});
+		var mouseEventHandler = function (e) {
+			if(e.target) {
+				if(e.target.matches("td.cell")) {
+					cellHover(e.target);
+				} else if (e.target.matches("th.headerPlace")) {
+					headHover(e.target);
+				}
+			}
+		}
 		
-		$("#mainTable").delegate("td", "mouseover mousemove mouseenter", cellHover);
-		$("#mainTable").delegate("th", "mouseover mousemove mouseenter", headHover);
-
-		$("#mask").on("click", function (e) {
-			microViewModel.clearWindow();
-		});
-
-		$(document).keydown(function (e) {
+		document.el.mainTableEl.addEventListener("mouseover", mouseEventHandler);
+		document.el.mainTableEl.addEventListener("mousemove", mouseEventHandler);
+		document.el.mainTableEl.addEventListener("mouseenter", mouseEventHandler);
+		
+		document.el.maskEl.addEventListener("click", microViewModel.clearWindow);
+		
+		document.addEventListener("keydown", function (e) {
 			if (e.keyCode === 27) {
 				microViewModel.clearWindow();
 			}
 		});
-
+	};
+	
+	//entry point
+	document.init = function() {
+		collectElements();
+		
+		setupEvents();
+		
 		Tabletop.init({
 			key: public_spreadsheet_url,
 			callback: tableTopCallback,

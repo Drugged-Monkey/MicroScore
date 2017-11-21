@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="http://code.jquery.com/jquery-2.0.2.min.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js" type="text/javascript"></script>
     <script src="tabletop.js" type="text/javascript"></script>
     <script src="MicroScore.js" type="text/javascript"></script>
@@ -78,14 +77,14 @@
         </thead>
         <tbody data-bind="foreach: teams">
             <tr>
-                <td data-bind="text: $index() + 1" class="not-important"></td>
-                <td data-bind="text: place"></td>
-                <td data-bind="text: teamName"></td>
-                <td data-bind="text: wins"></td>
-                <td data-bind="text: draws"></td>
-                <td data-bind="text: loses"></td>
-                <td data-bind="text: points"></td>
-                <td data-bind="text: totalTours"></td>
+                <td class="headcol" data-bind="text: $index() + 1" class="not-important"></td>
+                <td class="headcol" data-bind="text: place"></td>
+                <td class="headcol" data-bind="text: teamName"></td>
+                <td class="headcol" data-bind="text: wins"></td>
+                <td class="headcol" data-bind="text: draws"></td>
+                <td class="headcol" data-bind="text: loses"></td>
+                <td class="headcol" data-bind="text: points"></td>
+                <td class="headcol" data-bind="text: totalTours"></td>
                 <!--<td>
                     <div data-bind="css: { dot: wasLead }" class="dot"></div>
                 </td>-->
@@ -186,7 +185,6 @@
 	<div class="footer" id="footer">
 		<ul>
 			<li><b>Спасибо: </b></li>
-			<li ><a href="http://jquery.com/">jQuery</a></li>
 			<li ><a href="http://knockoutjs.com/">knockout.js</a></li>
 			<li ><a href="https://github.com/jsoma/tabletop">tabletop.js</a></li>
 			<li ><a href='https://twitter.com/drugged_monkey'>Саша Матюхин</a></li>
